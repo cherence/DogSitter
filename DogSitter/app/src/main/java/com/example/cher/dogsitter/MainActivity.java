@@ -1,10 +1,14 @@
 package com.example.cher.dogsitter;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -13,9 +17,11 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,7 +112,115 @@ public class MainActivity extends AppCompatActivity {
         mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        /* If a user is currently authenticated, display a logout menu */
+//        if (this.mAuthData != null) {
+//            getMenuInflater().inflate(R.menu.main, menu);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_logout) {
+//            logout();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
+    /**
+     * Unauthenticate from Firebase and Facebook where necessary.
+     */
+    private void logout(){
+        if (this.mAuthData != null) {
+            /* logout of Firebase */
+            mFirebaseRef.unauth();
+            /* Logout of any of the Frameworks. This step is optional, but ensures the user is not logged into
+             * Facebook/Google+ after logging out of Firebase. */
+            if (this.mAuthData.getProvider().equals("facebook")) {
+                /* Logout from Facebook */
+                LoginManager.getInstance().logOut();
+            }
+            setAuthenticatedUser(null);
+        }
+    }
+
+    /**
+     * Once a user is logged in, take the mAuthData provided from Firebase and "use" it.
+     * @param authData
+     */
+    private void setAuthenticatedUser(AuthData authData){
+        if (authData != null){
+            //keep the login button hidden
+            String name = (String) authData.getProviderData().get("displayName");
+            Intent intent = new Intent(MainActivity.this, PetInfoActivity.class);
+            startActivity(intent);
+            if (name != null){
+                mLoggedInStatusTextView.setText("Logged in as " + name + " (" + authData.getProviderData() + ")");
+            }
+        } else {
+            //If no authenticated user show the login button
+            mFacebookLoginButton.setVisibility(View.VISIBLE);
+        }
+        mAuthData = authData;
+        //invalidate options menu to hide/show the logout button
+        //supportInvalidateOptionsMenu(); <<uncomment when toolbar is made
+    }
+
+    /**
+     * Utility class for authentication results
+     */
+    private class AuthResultHandler implements Firebase.AuthResultHandler {
+        private final String provider;
+
+        public AuthResultHandler(String provider) {
+            this.provider = provider;
+        }
+
+        @Override
+        public void onAuthenticated(AuthData authData) {
+            mAuthProgressDialog.hide();
+            Log.i(TAG, "onAuthenticated:" + provider + " auth successful");
+            setAuthenticatedUser(authData);
+        }
+
+        @Override
+        public void onAuthenticationError(FirebaseError firebaseError) {
+            mAuthProgressDialog.hide();
+            showErrorDialog(firebaseError.toString());
+        }
+    }
+
+    /**
+     * Show errors to users
+     */
+    private void showErrorDialog(String message){
+        new AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    private void onFacebookAccessTokenChange(AccessToken token){
+        if (token != null){
+            mAuthProgressDialog.show();
+            mFirebaseRef.authWithOAuthToken("facebook", token.getToken(), new AuthResultHandler("facebook"));
+        } else {
+            //Logged out of facebook and currently authenticated with firebase using Facebook, so do a logout
+            if (this.mAuthData != null && this.mAuthData.getProvider().equals("facebook")){
+                mFirebaseRef.unauth();
+                setAuthenticatedUser(null);
+            }
+        }
+    }
 }
 
 
