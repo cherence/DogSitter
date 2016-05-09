@@ -3,6 +3,8 @@ package com.example.cher.dogsitter;
 import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.firebase.client.Firebase;
 
 /**
@@ -14,5 +16,7 @@ public class DogSitterApp extends Application{
     public void onCreate() {
         super.onCreate();
         Firebase.setAndroidContext(this);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 }
