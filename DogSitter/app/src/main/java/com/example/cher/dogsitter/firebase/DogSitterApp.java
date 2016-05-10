@@ -1,4 +1,4 @@
-package com.example.cher.dogsitter;
+package com.example.cher.dogsitter.firebase;
 
 import android.app.Application;
 import android.support.v7.app.AppCompatActivity;

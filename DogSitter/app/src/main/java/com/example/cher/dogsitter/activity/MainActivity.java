@@ -1,4 +1,4 @@
-package com.example.cher.dogsitter;
+package com.example.cher.dogsitter.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -6,41 +6,46 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.cher.dogsitter.PetInfoActivity;
+import com.example.cher.dogsitter.R;
+import com.example.cher.dogsitter.model.Group;
+import com.example.cher.dogsitter.model.User;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private TextView mLoggedInStatusTextView;
-    //A dialog that is presented until the Firebase authentication finished.
-    private ProgressDialog mAuthProgressDialog;
-    //A reference to the Firebase
-    private Firebase mFirebaseRef;
-    //Data from the authenticated user
-    private AuthData mAuthData;
-    //Listener for Firebase session changes
-    private Firebase.AuthStateListener mAuthStateListener;
-    //The login button for Facebook
-    private LoginButton mFacebookLoginButton;
-    //The callback manager for Facebook
-    private CallbackManager mFacebookCallbackManager;
-    //Used to track user logging in/out off Facebook
-    private AccessTokenTracker mFacebookAccessTokenTracker;
+    private ProgressDialog mAuthProgressDialog; //A dialog that is presented until the Firebase authentication finished.
+    private Firebase mFirebaseRef; //A reference to the Firebase
+    private Firebase userRefFb;
+    private Firebase groupRefFb;
+    String fullNameOnFacebook;
+    String emailOnFacebook;
+    String uIdOnFacebook;
+    String groupName;
+
+    private AuthData mAuthData; //Data from the authenticated user
+    private Firebase.AuthStateListener mAuthStateListener; //Listener for Firebase session changes
+    private LoginButton mFacebookLoginButton; //The login button for Facebook
+    private CallbackManager mFacebookCallbackManager; //The callback manager for Facebook
+    private AccessTokenTracker mFacebookAccessTokenTracker; //Used to track user logging in/out off Facebook
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Check if the user is authenticated with Firebase already. If this is the case we can set the authenticated user and hide hide any login buttons
         mFirebaseRef.addAuthStateListener(mAuthStateListener);
-
     }
 
     /**
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initializeViews(){
         mFacebookLoginButton = (LoginButton) findViewById(R.id.facebookLogin_button_id);
+        mFacebookLoginButton.setReadPermissions("email");
         mLoggedInStatusTextView = (TextView) findViewById(R.id.loginStatus_textView_id);
     }
 
@@ -158,11 +163,20 @@ public class MainActivity extends AppCompatActivity {
     private void setAuthenticatedUser(AuthData authData){
         if (authData != null){
             //keep the login button hidden
-            String name = (String) authData.getProviderData().get("displayName");
+            //add the user to the firebase database here!! create a user profile and a new group then add the specific user to the group.
+
+            fullNameOnFacebook = (String) authData.getProviderData().get("displayName");
+            emailOnFacebook = (String) authData.getProviderData().get("email");
+            uIdOnFacebook = (String) authData.getProviderData().get("id");
+            Log.i(TAG, "setAuthenticatedUser: " + fullNameOnFacebook + " " + emailOnFacebook + " " + uIdOnFacebook);
+
+            createUserProfile();
+            createGroupForNewUser();
+
             Intent intent = new Intent(MainActivity.this, PetInfoActivity.class);
             startActivity(intent);
-            if (name != null){
-                mLoggedInStatusTextView.setText("Logged in as " + name + " (" + authData.getProviderData() + ")");
+            if (fullNameOnFacebook != null){
+                mLoggedInStatusTextView.setText("Logged in as " + fullNameOnFacebook + " (" + authData.getProviderData() + ")");
             }
         } else {
             //If no authenticated user show the login button
@@ -220,6 +234,50 @@ public class MainActivity extends AppCompatActivity {
                 setAuthenticatedUser(null);
             }
         }
+    }
+
+    private void createUserProfile(){
+        ArrayList<String> memberships = new ArrayList<>();
+        memberships.add("GROUP" + uIdOnFacebook);
+        User newUser = new User(uIdOnFacebook, fullNameOnFacebook, emailOnFacebook, memberships);
+        userRefFb = mFirebaseRef.child("user");
+        Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
+        specificUserRefFb.setValue(newUser);
+        specificUserRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User newUser = dataSnapshot.getValue(User.class);
+                Log.i(TAG, "onDataChange:" + newUser);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
+    private void createGroupForNewUser(){
+        final ArrayList<String> members = new ArrayList<>();
+        members.add(uIdOnFacebook);
+        groupName = "GROUP" + uIdOnFacebook;
+        Group newGroup = new Group(members);
+        groupRefFb = mFirebaseRef.child("group");
+//        groupRefFb.child(groupName).setValue(newGroup);
+        Firebase specificGroupRefFb = groupRefFb.child(groupName);
+        specificGroupRefFb.setValue(newGroup);
+        specificGroupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Group newGroup = dataSnapshot.getValue(Group.class);
+                Log.i(TAG, "onDataChange: OG member in group" + newGroup.getMembers().get(0));
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 }
 
