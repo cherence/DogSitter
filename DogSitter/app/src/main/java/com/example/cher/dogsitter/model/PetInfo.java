@@ -5,6 +5,7 @@ package com.example.cher.dogsitter.model;
  * Created by leisforkokomo on 5/8/16.
  */
 public class PetInfo {
+    String petPhoto;
     String name;
     String nickname;
     String age;
@@ -24,7 +25,11 @@ public class PetInfo {
     String cautions;
     String tricks;
 
-    public PetInfo(String name, String nickname, String age, String breed, String color, String weight, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String routine, String hangouts, String hidingSpots, String cautions, String tricks) {
+    public PetInfo() {
+    }
+
+    public PetInfo(String petPhoto, String name, String nickname, String age, String breed, String color, String weight, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String routine, String hangouts, String hidingSpots, String cautions, String tricks) {
+        this.petPhoto = petPhoto;
         this.name = name;
         this.nickname = nickname;
         this.age = age;
@@ -43,6 +48,14 @@ public class PetInfo {
         this.hidingSpots = hidingSpots;
         this.cautions = cautions;
         this.tricks = tricks;
+    }
+
+    public String getPetPhoto() {
+        return petPhoto;
+    }
+
+    public void setPetPhoto(String petPhoto) {
+        this.petPhoto = petPhoto;
     }
 
     public String getName() {
