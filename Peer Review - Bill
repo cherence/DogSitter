@@ -1,5 +1,5 @@
 1. Does the project appear to meet the technical requirements? Write up one sentence on your findings and give a score 0-3.
-I can see Cher using 3rd party library and fragments. 1.5
+I can see Cher using firebase, 3rd party library (bottom navi) and fragment. Will give it a 2. 
 
 Is your peer making API calls, using SDK's/third-party libraries?
 bottom navi is a 3rd party library. 
@@ -23,11 +23,11 @@ Is your peer making use of proper UX patterns we learned in class? If not, what 
 -- app are for dog owners
 
 Is your peer making anything cool or awesome that you would like to note or applaud them on?
---getting FB user name and email. connecting to Firebase properly is good
+--getting FB user name and email. connecting to Firebase properly is good.
 
 
 3. Does the project appear to follow correct coding styles and best practices? Write up one sentence on your findings and give a score 0-3.
--- clean code syle - 3
+-- clean code syle - 2
 
 Are you able to reasonably follow the code without having anyone answer your questions?
 -- yes, most of the codes have java doc or comments explaining what it does.
@@ -42,7 +42,7 @@ What makes the readable code readable? Be as detailed as you can in your answer,
 -- setting up user info to firebase. the naming convention is good and able to follow the code to how the user will be created with Firebase. 
 
 What makes the difficult code harder to follow? Be as detailed as you can in your answer.
--- the app doesn't have much coding involved. can't follow on how it will work.
+-- the app doesn't have much coding done. can't follow on how it will work base on looking from codes alone.
 
 5. High level project overview: Take a look at as many individual files as you have time for
 
