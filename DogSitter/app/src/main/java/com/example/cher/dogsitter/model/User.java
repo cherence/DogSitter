@@ -15,11 +15,12 @@ public class User {
     public User() {
     }
 
-    public User(String uniqueId, String fullUserName, String emailAddy, ArrayList<String> memberships) {
+    public User(String uniqueId, String fullUserName, String emailAddy, ArrayList<String> memberships, Boolean admin) {
         this.uniqueId = uniqueId;
         this.fullUserName = fullUserName;
         this.emailAddy = emailAddy;
         this.memberships = memberships;
+        this.admin = admin;
     }
 
     public String getUniqueId() {
@@ -52,5 +53,13 @@ public class User {
 
     public void setMemberships(ArrayList<String> memberships) {
         this.memberships = memberships;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }

@@ -28,14 +28,18 @@
         <activity android:name=".WalkActivity" />
         <activity android:name=".activity.GroomActivity" />
         <activity android:name=".PottyActivity" />
-        <activity android:name=".activity.FoodActivity"></activity>
+        <activity android:name=".activity.FoodActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-    </application>
 
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".activity.OptionsActivity"></activity>
+    </application>
 
 </manifest>

@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             createUserProfile();
             createGroupForNewUser();
 
-            Intent intent = new Intent(MainActivity.this, PetInfoActivity.class);
+            Intent intent = new Intent(MainActivity.this, OptionsActivity.class);
             startActivity(intent);
             if (fullNameOnFacebook != null){
                 mLoggedInStatusTextView.setText("Logged in as " + fullNameOnFacebook + " (" + authData.getProviderData() + ")");
@@ -239,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
     private void createUserProfile(){
         ArrayList<String> memberships = new ArrayList<>();
         memberships.add("GROUP" + uIdOnFacebook);
-        User newUser = new User(uIdOnFacebook, fullNameOnFacebook, emailOnFacebook, memberships);
+        User newUser = new User(uIdOnFacebook, fullNameOnFacebook, emailOnFacebook, memberships, true);
+        Log.i(TAG, "createUserProfile: " + newUser.getAdmin());
         userRefFb = mFirebaseRef.child("user");
         Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
         specificUserRefFb.setValue(newUser);
@@ -263,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
         groupName = "GROUP" + uIdOnFacebook;
         Group newGroup = new Group(members);
         groupRefFb = mFirebaseRef.child("group");
-//        groupRefFb.child(groupName).setValue(newGroup);
         Firebase specificGroupRefFb = groupRefFb.child(groupName);
         specificGroupRefFb.setValue(newGroup);
         specificGroupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
