@@ -3,6 +3,7 @@ package com.example.cher.dogsitter.activity;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -11,9 +12,6 @@ import com.example.cher.dogsitter.R;
 
 public class OptionsActivity extends AppCompatActivity {
     AHBottomNavigation bottomNavigation;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

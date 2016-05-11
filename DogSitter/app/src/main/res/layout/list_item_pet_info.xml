@@ -1,382 +1,507 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="2dp"
+    android:layout_gravity="center"
+    android:elevation="8dp">
 
-    <ImageView
-        android:id="@+id/pet_profile_ImageView_id"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        />
-
-    <TextView
-        android:id="@+id/pet_name_textView_id"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pet_profile_ImageView_id"
-        android:textSize="20dp"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Kaikea Malu Flores"/>
+       >
 
-    <EditText
-        android:id="@+id/pet_name_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pet_profile_ImageView_id"
-        android:textSize="20dp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="Enter Your Pet's Name"
-        android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/pet_profile_ImageView_id"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            />
 
-    <TextView
-        android:id="@+id/pet_nickName_textView_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pet_name_textView_id"
-        android:textSize="15dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:text="Booty"/>
+        <TextView
+            android:id="@+id/pet_name_textView_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_profile_ImageView_id"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Kaikea Malu Flores"/>
 
-    <EditText
-        android:id="@+id/pet_nickName_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pet_name_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="Does your dog have any nick names?"
-        android:visibility="gone"/>
+        <EditText
+            android:id="@+id/pet_name_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_profile_ImageView_id"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:hint="Enter Your Pet's Name"
+            android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/pet_ageLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_nickName_textView_id"
-        android:text="Age: "/>
+        <TextView
+            android:id="@+id/pet_nickName_textView_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_name_textView_id"
+            android:textSize="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:text="Booty"/>
 
-    <TextView
-        android:id="@+id/pet_age_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_ageLabel_textView_id"
-        android:layout_below="@id/pet_nickName_textView_id"
-        android:text="6"/>
+        <EditText
+            android:id="@+id/pet_nickName_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_name_textView_id"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:hint="Does your dog have any nick names?"
+            android:visibility="gone"/>
 
-    <EditText
-        android:id="@+id/pet_age_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pet_nickName_textView_id"
-        android:layout_toEndOf="@id/pet_ageLabel_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="How old is your dog?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_ageLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_nickName_textView_id"
+            android:text="Age: "/>
 
-    <TextView
-        android:id="@+id/pet_weightLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_age_textView_id"
-        android:text="Weight: "/>
+        <TextView
+            android:id="@+id/pet_age_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_ageLabel_textView_id"
+            android:layout_below="@id/pet_nickName_textView_id"
+            android:text="6"/>
 
-    <TextView
-        android:id="@+id/pet_weight_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_weightLabel_textView_id"
-        android:layout_below="@id/pet_age_textView_id"
-        android:text="20 lbs"/>
+        <EditText
+            android:id="@+id/pet_age_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_nickName_textView_id"
+            android:layout_toEndOf="@id/pet_ageLabel_textView_id"
+            android:textAlignment="center"
+            android:hint="How old is your dog?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_weight_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_weightLabel_textView_id"
-        android:layout_below="@id/pet_age_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="How much does your dog weigh?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_weightLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_age_textView_id"
+            android:text="Weight: "/>
 
-    <TextView
-        android:id="@+id/pet_breedLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_weight_textView_id"
-        android:text="Breed: "/>
+        <TextView
+            android:id="@+id/pet_weight_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_weightLabel_textView_id"
+            android:layout_below="@id/pet_age_textView_id"
+            android:text="20 lbs"/>
 
-    <TextView
-        android:id="@+id/pet_breed_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_breedLabel_textView_id"
-        android:layout_below="@id/pet_weight_textView_id"
-        android:text="Spitz"/>
+        <EditText
+            android:id="@+id/pet_weight_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_weightLabel_textView_id"
+            android:layout_below="@id/pet_age_textView_id"
+            android:textAlignment="center"
+            android:hint="How much does your dog weigh?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_breed_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pet_weight_textView_id"
-        android:layout_toEndOf="@id/pet_breedLabel_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="What breed is your dog?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_breedLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_weight_textView_id"
+            android:text="Breed: "/>
 
-    <TextView
-        android:id="@+id/pet_colorLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_breed_textView_id"
-        android:text="Color: "/>
+        <TextView
+            android:id="@+id/pet_breed_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_breedLabel_textView_id"
+            android:layout_below="@id/pet_weight_textView_id"
+            android:text="Spitz"/>
 
-    <TextView
-        android:id="@+id/pet_color_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_colorLabel_textView_id"
-        android:layout_below="@id/pet_breed_textView_id"
-        android:text="White"/>
+        <EditText
+            android:id="@+id/pet_breed_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_weight_textView_id"
+            android:layout_toEndOf="@id/pet_breedLabel_textView_id"
+            android:textAlignment="center"
+            android:hint="What breed is your dog?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_color_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_colorLabel_textView_id"
-        android:layout_below="@id/pet_breed_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="What color is your dog?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_colorLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_breed_textView_id"
+            android:text="Color: "/>
 
-    <TextView
-        android:id="@+id/pet_specialNeedsLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_color_textView_id"
-        android:text="Special Needs: "/>
+        <TextView
+            android:id="@+id/pet_color_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_colorLabel_textView_id"
+            android:layout_below="@id/pet_breed_textView_id"
+            android:text="White"/>
 
-    <TextView
-        android:id="@+id/pet_specialNeeds_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_specialNeedsLabel_textView_id"
-        android:layout_below="@id/pet_color_textView_id"
-        android:text="Diabetic"/>
+        <EditText
+            android:id="@+id/pet_color_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_colorLabel_textView_id"
+            android:layout_below="@id/pet_breed_textView_id"
+            android:textAlignment="center"
+            android:hint="What color is your dog?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_specialNeeds_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_specialNeedsLabel_textView_id"
-        android:layout_below="@id/pet_color_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="Does your dog have any special needs?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_specialNeedsLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_color_textView_id"
+            android:text="Special Needs: "/>
 
-    <TextView
-        android:id="@+id/pet_allergiesLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_specialNeeds_textView_id"
-        android:text="Known Allergies: "/>
+        <TextView
+            android:id="@+id/pet_specialNeeds_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_specialNeedsLabel_textView_id"
+            android:layout_below="@id/pet_color_textView_id"
+            android:text="Diabetic"/>
 
-    <TextView
-        android:id="@+id/pet_allergies_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_allergiesLabel_textView_id"
-        android:layout_below="@id/pet_specialNeeds_textView_id"
-        android:text="Gluten"/>
+        <EditText
+            android:id="@+id/pet_specialNeeds_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_specialNeedsLabel_textView_id"
+            android:layout_below="@id/pet_color_textView_id"
+            android:textAlignment="center"
+            android:hint="Does your dog have any special needs?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_allergies_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_allergiesLabel_textView_id"
-        android:layout_below="@id/pet_specialNeeds_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="Does your dog have any known allergies?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_allergiesLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_specialNeeds_textView_id"
+            android:text="Known Allergies: "/>
 
-    <TextView
-        android:id="@+id/pet_medicationLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_allergies_textView_id"
-        android:text="Current Medication: "/>
+        <TextView
+            android:id="@+id/pet_allergies_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_allergiesLabel_textView_id"
+            android:layout_below="@id/pet_specialNeeds_textView_id"
+            android:text="Gluten"/>
 
-    <TextView
-        android:id="@+id/pet_medication_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_medicationLabel_textView_id"
-        android:layout_below="@id/pet_allergies_textView_id"
-        android:text="Insulin"/>
+        <EditText
+            android:id="@+id/pet_allergies_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_allergiesLabel_textView_id"
+            android:layout_below="@id/pet_specialNeeds_textView_id"
+            android:textAlignment="center"
+            android:hint="Does your dog have any known allergies?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_medication_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_medicationLabel_textView_id"
-        android:layout_below="@id/pet_allergies_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="Is your dog currently taking any medication?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_medicationLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_allergies_textView_id"
+            android:text="Current Medication: "/>
 
-    <TextView
-        android:id="@+id/pet_injuriesLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_medication_textView_id"
-        android:text="Known Injuries: "/>
+        <TextView
+            android:id="@+id/pet_medication_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_medicationLabel_textView_id"
+            android:layout_below="@id/pet_allergies_textView_id"
+            android:text="Insulin"/>
 
-    <TextView
-        android:id="@+id/pet_injuries_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_injuriesLabel_textView_id"
-        android:layout_below="@id/pet_medication_textView_id"
-        android:text="Rear left leg is tender"/>
+        <EditText
+            android:id="@+id/pet_medication_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_medicationLabel_textView_id"
+            android:layout_below="@id/pet_allergies_textView_id"
+            android:textAlignment="center"
+            android:hint="Is your dog currently taking any medication?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_injuries_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_injuriesLabel_textView_id"
-        android:layout_below="@id/pet_medication_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="Does your dog have any injuries?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_injuriesLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_medication_textView_id"
+            android:text="Known Injuries: "/>
 
-    <TextView
-        android:id="@+id/pet_fearsLabel_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="4dp"
-        android:layout_below="@id/pet_injuries_textView_id"
-        android:text="Fears: "/>
+        <TextView
+            android:id="@+id/pet_injuries_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_injuriesLabel_textView_id"
+            android:layout_below="@id/pet_medication_textView_id"
+            android:text="Rear left leg is tender"/>
 
-    <TextView
-        android:id="@+id/pet_fears_textView_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_toEndOf="@id/pet_fearsLabel_textView_id"
-        android:layout_below="@id/pet_injuries_textView_id"
-        android:text="Thunder, lightning, strong winds, and fireworks"/>
+        <EditText
+            android:id="@+id/pet_injuries_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_injuriesLabel_textView_id"
+            android:layout_below="@id/pet_medication_textView_id"
+            android:textAlignment="center"
+            android:hint="Does your dog have any injuries?"
+            android:visibility="gone"
+            />
 
-    <EditText
-        android:id="@+id/pet_fears_editText_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/pet_fearsLabel_textView_id"
-        android:layout_below="@id/pet_injuries_textView_id"
-        android:textSize="15sp"
-        android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:hint="What is your dog afraid of?"
-        android:visibility="gone"
-        />
+        <TextView
+            android:id="@+id/pet_fearsLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_injuries_textView_id"
+            android:text="Fears: "/>
 
-    
+        <TextView
+            android:id="@+id/pet_fears_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_fearsLabel_textView_id"
+            android:layout_below="@id/pet_injuries_textView_id"
+            android:text="Thunder, lightning, strong winds, and fireworks"/>
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/pet_fears_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_fearsLabel_textView_id"
+            android:layout_below="@id/pet_injuries_textView_id"
+            android:textAlignment="center"
+            android:hint="What is your dog afraid of and how can your sitter help prevent it from happening/help your dog cope?"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/pet_hatesLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_fears_textView_id"
+            android:text="Hates: "/>
+
+        <TextView
+            android:id="@+id/pet_hates_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_hatesLabel_textView_id"
+            android:layout_below="@id/pet_fears_textView_id"
+            android:text="Cats and the vacuum cleaner"/>
+
+        <EditText
+            android:id="@+id/pet_hates_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_hatesLabel_textView_id"
+            android:layout_below="@id/pet_fears_textView_id"
+            android:textAlignment="center"
+            android:hint="Does your dog hate anything/one and how can your sitter help prevent it from happening/help your dog cope?"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/pet_lovesLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_hates_textView_id"
+            android:text="Loves: "/>
+
+        <TextView
+            android:id="@+id/pet_loves_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_lovesLabel_textView_id"
+            android:layout_below="@id/pet_hates_textView_id"
+            android:text="Belly rubs and squeaker toys"/>
+
+        <EditText
+            android:id="@+id/pet_loves_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_lovesLabel_textView_id"
+            android:layout_below="@id/pet_hates_textView_id"
+            android:textAlignment="center"
+            android:hint="What are some things your dog loves?"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/pet_tricksLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_loves_textView_id"
+            android:text="Tricks: "/>
+
+        <TextView
+            android:id="@+id/pet_tricks_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_tricksLabel_textView_id"
+            android:layout_below="@id/pet_loves_textView_id"
+            android:text="Sit and paw"/>
+
+        <EditText
+            android:id="@+id/pet_tricks_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_tricksLabel_textView_id"
+            android:layout_below="@id/pet_loves_textView_id"
+            android:textAlignment="center"
+            android:hint="Does your dog know any tricks?"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/pet_routineLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_tricks_textView_id"
+            android:text="Routine: "/>
+
+        <TextView
+            android:id="@+id/pet_routine_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_routineLabel_textView_id"
+            android:layout_below="@id/pet_tricks_textView_id"
+            android:text="Sunbathes until around 12pm then people watches and plays with his toys"/>
+
+        <EditText
+            android:id="@+id/pet_routine_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_routineLabel_textView_id"
+            android:layout_below="@id/pet_tricks_textView_id"
+            android:textAlignment="center"
+            android:hint="What is your dog's typical day like?"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/pet_hideoutsLabel_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/pet_routine_textView_id"
+            android:text="Hiding Spots: "/>
+
+        <TextView
+            android:id="@+id/pet_hideouts_textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/pet_hideoutsLabel_textView_id"
+            android:layout_below="@id/pet_routine_textView_id"
+            android:text="Sunbathes until around 12pm then people watches and plays with his toys"/>
+
+        <EditText
+            android:id="@+id/pet_hideouts_editText_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pet_hideoutsLabel_textView_id"
+            android:layout_below="@id/pet_routine_textView_id"
+            android:textAlignment="center"
+            android:hint="Does your dog have any favorite hiding spots?"
+            android:visibility="gone"
+            />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

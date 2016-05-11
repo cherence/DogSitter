@@ -19,16 +19,15 @@ public class PetInfo {
     String fears;
     String hates;
     String loves;
-    String routine;
-    String hangouts;
-    String hidingSpots;
-    String cautions;
     String tricks;
+    String routine;
+    String hidingSpots;
+
 
     public PetInfo() {
     }
 
-    public PetInfo(String petPhoto, String name, String nickname, String age, String breed, String color, String weight, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String routine, String hangouts, String hidingSpots, String cautions, String tricks) {
+    public PetInfo(String petPhoto, String name, String nickname, String age, String breed, String color, String weight, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String tricks, String routine, String hidingSpots) {
         this.petPhoto = petPhoto;
         this.name = name;
         this.nickname = nickname;
@@ -43,11 +42,9 @@ public class PetInfo {
         this.fears = fears;
         this.hates = hates;
         this.loves = loves;
-        this.routine = routine;
-        this.hangouts = hangouts;
-        this.hidingSpots = hidingSpots;
-        this.cautions = cautions;
         this.tricks = tricks;
+        this.routine = routine;
+        this.hidingSpots = hidingSpots;
     }
 
     public String getPetPhoto() {
@@ -162,6 +159,14 @@ public class PetInfo {
         this.loves = loves;
     }
 
+    public String getTricks() {
+        return tricks;
+    }
+
+    public void setTricks(String tricks) {
+        this.tricks = tricks;
+    }
+
     public String getRoutine() {
         return routine;
     }
@@ -170,35 +175,11 @@ public class PetInfo {
         this.routine = routine;
     }
 
-    public String getHangouts() {
-        return hangouts;
-    }
-
-    public void setHangouts(String hangouts) {
-        this.hangouts = hangouts;
-    }
-
     public String getHidingSpots() {
         return hidingSpots;
     }
 
     public void setHidingSpots(String hidingSpots) {
         this.hidingSpots = hidingSpots;
-    }
-
-    public String getCautions() {
-        return cautions;
-    }
-
-    public void setCautions(String cautions) {
-        this.cautions = cautions;
-    }
-
-    public String getTricks() {
-        return tricks;
-    }
-
-    public void setTricks(String tricks) {
-        this.tricks = tricks;
     }
 }
