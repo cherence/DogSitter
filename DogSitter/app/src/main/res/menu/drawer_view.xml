@@ -7,6 +7,11 @@
             android:icon="@drawable/icon_sitter_48"
             android:title="My Sitters"/>
 
+        <item
+            android:id="@+id/drawer_logout_id"
+            android:icon="@drawable/icon_fb_48"
+            android:title="Logout"/>
+
         <item android:title="Owner Profile">
             <menu>
                 <group android:checkableBehavior="single">
@@ -54,12 +59,6 @@
 
             </menu>
         </item>
-
-        <item
-            android:id="@+id/drawer_logout_id"
-            android:icon="@drawable/icon_fb_48"
-            android:title="Logout"/>
-
     </group>
 
 </menu>

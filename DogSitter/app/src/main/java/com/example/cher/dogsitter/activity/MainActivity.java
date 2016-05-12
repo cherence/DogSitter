@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.cher.dogsitter.PetInfoActivity;
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.model.Group;
 import com.example.cher.dogsitter.model.User;
@@ -26,7 +25,6 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
