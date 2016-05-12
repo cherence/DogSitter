@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
         newUser.setEmailAddy(emailOnFacebook);
         newUser.setMemberships(memberships);
         newUser.setAdmin(true);
+        newUser.setOwnerProfile(null);
         Log.i(TAG, "createUserProfile: " + newUser.getAdmin());
         userRefFb = mFirebaseRef.child("user");
         Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);

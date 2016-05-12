@@ -158,7 +158,6 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
         }
         fragmentTransaction.commit();
-
         menuItem.setChecked(true);
         //setTitle(menuItem.getTitle());
         drawer.closeDrawers();
@@ -222,7 +221,6 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intentRetrieveFromSelectionActivity = getIntent();
         selectionExtra = intentRetrieveFromSelectionActivity.getStringExtra(SelectionActivity.PROFILE_TYPE_KEY);
     }
-
 
 
     private void displayProperFragment(){

@@ -37,6 +37,15 @@ public class User {
         this.admin = admin;
     }
 
+    public User(String uniqueId, String fullUserName, String emailAddy, ArrayList<String> memberships, Boolean admin, OwnerProfile ownerProfile) {
+        this.uniqueId = uniqueId;
+        this.fullUserName = fullUserName;
+        this.emailAddy = emailAddy;
+        this.memberships = memberships;
+        this.admin = admin;
+        this.ownerProfile = ownerProfile;
+    }
+
     public String getUniqueId() {
         return uniqueId;
     }
@@ -75,5 +84,13 @@ public class User {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public OwnerProfile getOwnerProfile() {
+        return ownerProfile;
+    }
+
+    public void setOwnerProfile(OwnerProfile ownerProfile) {
+        this.ownerProfile = ownerProfile;
     }
 }

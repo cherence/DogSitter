@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class MySitterFragment extends Fragment {
+    private static final String TAG = "MySitterFragment";
     EditText enterCodeEditText;
     Button submitButton;
     Button requestCodeButton;
@@ -36,6 +38,7 @@ public class MySitterFragment extends Fragment {
     User newUser;
     Group newGroup;
     User sitterUser;
+    Firebase sitterMembershipsFbRef;
 
 
     public MySitterFragment() {
@@ -67,22 +70,30 @@ public class MySitterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String codeOfNewSitter = enterCodeEditText.getText().toString();
-                Firebase ownersGroupFbRef = groupFbRef.child(newGroup.getName()); //add the sitter to my group
+                Log.i(TAG, "onClick: " + newGroup.getName());
+                Firebase ownersGroupFbRef = groupFbRef.child(newGroup.getName()).child("members"); //add the sitter to my group
 
-//                ArrayList<String> ownersGroupMembers= newGroup.getMembers();
-//                ownersGroupMembers.add(codeOfNewSitter); //add new sitter to members array
+                //ADD NULL CHECK SO IT DOESN'T CRASH--> IF UNIQUE ID ISN'T VALID SHOW A TOAST.
 
-                ownersGroupFbRef.setValue(newGroup.getMembers().add(codeOfNewSitter)); //add new sitter to members array
+                ArrayList<String> ownersGroupMembers= newGroup.getMembers();
+                ownersGroupMembers.add(codeOfNewSitter); //add new sitter to members array
+                Log.i(TAG, "onClick: " + ownersGroupMembers.get(1));
+                ownersGroupFbRef.setValue(ownersGroupMembers);
+
+//                ownersGroupFbRef.setValue(newGroup.getMembers().add(codeOfNewSitter)); //add new sitter to members array
 
                 //group level: what to add to the child--> codeOfNewSitter <--adds this sitter as a member of my group
 
-                Firebase sitterUserFbRef = userFbRef.child(codeOfNewSitter); //will access the sitter's user account
+                final Firebase sitterUserFbRef = userFbRef.child(codeOfNewSitter); //will access the sitter's user account
                 //user level: what to add to the child --> update memberships to user.getUniqueId
-                Firebase sitterMembershipsFbRef = sitterUserFbRef.child("memberships");
-                sitterMembershipsFbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                sitterUserFbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         sitterUser = dataSnapshot.getValue(User.class);
+                        sitterUser.getMemberships().add("GROUP" + newUser.getUniqueId());
+
+                        sitterUserFbRef.setValue(sitterUser); //update sitter's memberships to include owner's group
 
                     }
 
@@ -91,7 +102,6 @@ public class MySitterFragment extends Fragment {
 
                     }
                 });
-                sitterMembershipsFbRef.setValue(sitterUser.getMemberships().add(newUser.getUniqueId())); //update sitter's memberships to include owner's group
             }
         });
 

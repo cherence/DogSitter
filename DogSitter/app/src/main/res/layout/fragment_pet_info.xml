@@ -13,6 +13,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/pet_edit_button_id"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/icon_edit_48"
+            android:layout_gravity="right"/>
+
         <TextView
             android:id="@+id/pet_dogTitle_textView_id"
             android:layout_width="match_parent"
@@ -20,10 +27,9 @@
             android:text="Dogs"
             android:textAllCaps="true"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:layout_marginTop="16dp"/>
+            android:textColor="@color/primary"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
