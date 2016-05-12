@@ -19,16 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".PetInfoActivity" />
-        <activity android:name=".activity.OwnerInfoActivity" />
-        <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.FirstAidActivity" />
-        <activity android:name=".activity.ChatActivity" />
-        <activity android:name=".activity.DogStuffActivity" />
-        <activity android:name=".activity.MedicineActivity" />
-        <activity android:name=".WalkActivity" />
-        <activity android:name=".activity.GroomActivity" />
-        <activity android:name=".PottyActivity" />
-        <activity android:name=".activity.FoodActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -39,7 +29,8 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activity.OptionsActivity"></activity>
+        <activity android:name=".activity.SelectionActivity"></activity>
+        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

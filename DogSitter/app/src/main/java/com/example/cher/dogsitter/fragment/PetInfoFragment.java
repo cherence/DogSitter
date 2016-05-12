@@ -17,10 +17,9 @@ import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
 /**
-
+ *
  */
 public class PetInfoFragment extends Fragment {
-
     RecyclerView petInfoRV;
     FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder> petInfoFbRecyclerAdapter;
     Firebase petInfoFbRef;
@@ -29,7 +28,7 @@ public class PetInfoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        petInfoFbRef = new Firebase()
+//        petInfoFbRef = new Firebase();
     }
 
     @Nullable
@@ -37,15 +36,17 @@ public class PetInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pet_info, container, false);
 
-        petInfoFbRecyclerAdapter = new FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder>(PetInfo.class, R.layout.fragment_pet_info, PetInfoRVHolder.class, petInfoFbRef) {
-            @Override
-            protected void populateViewHolder(PetInfoRVHolder petInfoRVHolder, final PetInfo petInfo, final int i) {
-                petInfoRVHolder.
-
-
-            }
-        };
-
+//
+//        //DISPLAYING
+//        petInfoFbRecyclerAdapter = new FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder>(PetInfo.class, R.layout.fragment_pet_info, PetInfoRVHolder.class, petInfoFbRef) {
+//            @Override
+//            protected void populateViewHolder(PetInfoRVHolder petInfoRVHolder, final PetInfo petInfo, final int i) {
+////                petInfoRVHolder.
+//
+//
+//            }
+//        };
+//
 
         return v;
     }

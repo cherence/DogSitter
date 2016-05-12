@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     String emailOnFacebook;
     String uIdOnFacebook;
     String groupName;
+    User newUser;
+    Group newGroup;
+
 
     private AuthData mAuthData; //Data from the authenticated user
     private Firebase.AuthStateListener mAuthStateListener; //Listener for Firebase session changes
@@ -173,8 +176,9 @@ public class MainActivity extends AppCompatActivity {
             createUserProfile();
             createGroupForNewUser();
 
-            Intent intent = new Intent(MainActivity.this, OptionsActivity.class);
+            Intent intent = new Intent(MainActivity.this, SelectionActivity.class);
             startActivity(intent);
+
             if (fullNameOnFacebook != null){
                 mLoggedInStatusTextView.setText("Logged in as " + fullNameOnFacebook + " (" + authData.getProviderData() + ")");
             }
@@ -239,7 +243,12 @@ public class MainActivity extends AppCompatActivity {
     private void createUserProfile(){
         ArrayList<String> memberships = new ArrayList<>();
         memberships.add("GROUP" + uIdOnFacebook);
-        User newUser = new User(uIdOnFacebook, fullNameOnFacebook, emailOnFacebook, memberships, true);
+        newUser = User.getInstance();
+        newUser.setUniqueId(uIdOnFacebook);
+        newUser.setFullUserName(fullNameOnFacebook);
+        newUser.setEmailAddy(emailOnFacebook);
+        newUser.setMemberships(memberships);
+        newUser.setAdmin(true);
         Log.i(TAG, "createUserProfile: " + newUser.getAdmin());
         userRefFb = mFirebaseRef.child("user");
         Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
@@ -262,7 +271,9 @@ public class MainActivity extends AppCompatActivity {
         final ArrayList<String> members = new ArrayList<>();
         members.add(uIdOnFacebook);
         groupName = "GROUP" + uIdOnFacebook;
-        Group newGroup = new Group(members);
+        newGroup = Group.getInstance();
+        newGroup.setName(groupName);
+        newGroup.setMembers(members);
         groupRefFb = mFirebaseRef.child("group");
         Firebase specificGroupRefFb = groupRefFb.child(groupName);
         specificGroupRefFb.setValue(newGroup);

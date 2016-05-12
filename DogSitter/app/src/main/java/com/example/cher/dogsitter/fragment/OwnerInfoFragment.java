@@ -12,18 +12,19 @@ import com.example.cher.dogsitter.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SelectPathFragment extends Fragment {
+public class OwnerInfoFragment extends Fragment {
 
 
-    public SelectPathFragment() {
+    public OwnerInfoFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select_path, container, false);
+        return inflater.inflate(R.layout.fragment_owner_info, container, false);
     }
 
 }

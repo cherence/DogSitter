@@ -7,7 +7,7 @@
     tools:context="com.example.cher.dogsitter.activity.OptionsActivity">
 
     <FrameLayout
-        android:id="@+id/options_container_id"
+        android:id="@+id/profile_container_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>

@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.example.cher.dogsitter.fragment.MySitterFragment">
+
+    <TextView
+        android:id="@+id/mySitter_authorize_textView_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Authorize a Sitter"/>
+
+    <EditText
+        android:id="@+id/mySitter_enterCode_editText_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Code Received From Sitter"
+        android:textAlignment="center"
+        />
+
+    <Button
+        android:id="@+id/mySitter_submitButton_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+
+    <TextView
+        android:id="@+id/mySitter_noCode_textView_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Don't have your sitter's unique code?"/>
+
+    <Button
+        android:id="@+id/mySitter_requestCodeButton_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request Code From Sitter"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mySitter_recyclerView_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

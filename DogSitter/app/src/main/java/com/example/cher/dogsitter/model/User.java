@@ -1,5 +1,6 @@
 package com.example.cher.dogsitter.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,8 +12,21 @@ public class User {
     String emailAddy;
     ArrayList<String> memberships;
     Boolean admin;
+    OwnerProfile ownerProfile;
+    private static User user = null;
 
     public User() {
+    }
+
+    /**
+     * This method creates a singleton of the User object.
+     * @return
+     */
+    public static User getInstance(){
+        if (user == null){
+            user = new User();
+        }
+        return user;
     }
 
     public User(String uniqueId, String fullUserName, String emailAddy, ArrayList<String> memberships, Boolean admin) {
