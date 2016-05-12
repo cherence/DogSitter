@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_mySitter_id"
+            android:icon="@drawable/icon_sitter_48"
+            android:title="My Sitters"/>
+
+        <item android:title="Owner Profile">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/drawer_dog_id"
+                        android:icon="@drawable/icon_dogpaw_48"
+                        android:title="Dog Profile"/>
+                    <item
+                        android:id="@+id/drawer_owner_id"
+                        android:icon="@drawable/icon_owner_48"
+                        android:title="Owner Profile"/>
+                    <item
+                        android:id="@+id/drawer_home_id"
+                        android:icon="@drawable/icon_home_48"
+                        android:title="House"/>
+                    <item
+                        android:id="@+id/drawer_medicine_id"
+                        android:icon="@drawable/icon_medicine_48"
+                        android:title="Medicine"/>
+                    <item
+                        android:id="@+id/drawer_feed_id"
+                        android:icon="@drawable/icon_feed_48"
+                        android:title="Food"/>
+                    <item
+                        android:id="@+id/drawer_potty_id"
+                        android:icon="@drawable/icon_potty_48"
+                        android:title="Potty"/>
+                    <item
+                        android:id="@+id/drawer_walk_id"
+                        android:icon="@drawable/icon_walk_50"
+                        android:title="Activity"/>
+                    <item
+                        android:id="@+id/drawer_groom_id"
+                        android:icon="@drawable/icon_groom_48"
+                        android:title="Groom"/>
+                    <item
+                        android:id="@+id/drawer_stuff_id"
+                        android:icon="@drawable/icon_stuff_48"
+                        android:title="Dog Stuff"/>
+                    <item
+                        android:id="@+id/drawer_firstAid_id"
+                        android:icon="@drawable/icon_firstaid_48"
+                        android:title="First Aid"/>
+                </group>
+
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/drawer_logout_id"
+            android:icon="@drawable/icon_fb_48"
+            android:title="Logout"/>
+
+    </group>
+
+</menu>
