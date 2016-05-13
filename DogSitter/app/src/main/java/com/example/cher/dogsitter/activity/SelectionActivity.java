@@ -10,10 +10,11 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.example.cher.dogsitter.R;
 
 public class SelectionActivity extends AppCompatActivity {
+    public static final String PROFILE_TYPE_KEY = "this key sends the name of the button clicked to the profile activity";
+
     Button ownerProfileButton;
     Button sitterProfileButton;
     Intent intentSendtoProfileActivity;
-    public static final String PROFILE_TYPE_KEY = "this key sends the name of the button clicked to the profile activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

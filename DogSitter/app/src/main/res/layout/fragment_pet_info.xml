@@ -14,11 +14,12 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/pet_edit_button_id"
+            android:id="@+id/pet_editButton_id"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/icon_edit_48"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/pet_dogTitle_textView_id"
@@ -32,6 +33,7 @@
             android:textColor="@color/primary"/>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/pet_recyclerView_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
