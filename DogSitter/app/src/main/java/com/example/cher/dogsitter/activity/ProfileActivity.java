@@ -19,7 +19,7 @@ import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.fragment.ChatFragment;
 import com.example.cher.dogsitter.fragment.MySitterFragment;
 import com.example.cher.dogsitter.fragment.OwnerInfoFragment;
-import com.example.cher.dogsitter.fragment.PetInfoViewFragment;
+import com.example.cher.dogsitter.fragment.PetInfoDisplayFragment;
 import com.example.cher.dogsitter.fragment.SitterInfoFragment;
 import com.example.cher.dogsitter.model.Group;
 import com.example.cher.dogsitter.model.User;
@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     String selectionExtra;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    PetInfoViewFragment petInfoViewFragment;
+    PetInfoDisplayFragment petInfoDisplayFragment;
     SitterInfoFragment sitterInfoFragment;
     ChatFragment chatFragment;
     OwnerInfoFragment ownerInfoFragment;
@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initializeFragments(){
-        petInfoViewFragment = new PetInfoViewFragment();
+        petInfoDisplayFragment = new PetInfoDisplayFragment();
         sitterInfoFragment = new SitterInfoFragment();
         chatFragment = new ChatFragment();
         ownerInfoFragment = new OwnerInfoFragment();
@@ -121,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.profile_container_id, mySitterFragment);
                 break;
             case R.id.drawer_dog_id:
-                fragmentTransaction.replace(R.id.profile_container_id, petInfoViewFragment);
+                fragmentTransaction.replace(R.id.profile_container_id, petInfoDisplayFragment);
                 break;
             case R.id.drawer_owner_id:
                 fragmentTransaction.replace(R.id.profile_container_id, ownerInfoFragment);
@@ -203,7 +203,7 @@ public class ProfileActivity extends AppCompatActivity {
                 setFragmentLogistics();
                 fragmentTransaction.addToBackStack(null); //might go right above fragmenttransaction.commit
                 if (position == 0){
-                    fragmentTransaction.replace(R.id.profile_container_id, petInfoViewFragment);
+                    fragmentTransaction.replace(R.id.profile_container_id, petInfoDisplayFragment);
                 } else if (position == 1){
                     fragmentTransaction.replace(R.id.profile_container_id, sitterInfoFragment);
                 } else if (position == 2){
@@ -224,7 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
         setFragmentLogistics();
         switch (selectionExtra){
             case "My Owner Profile":
-                fragmentTransaction.add(R.id.profile_container_id, petInfoViewFragment);
+                fragmentTransaction.add(R.id.profile_container_id, petInfoDisplayFragment);
                 break;
             case "My Sitter Profile":
                 fragmentTransaction.add(R.id.profile_container_id, sitterInfoFragment);

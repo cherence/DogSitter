@@ -28,7 +28,7 @@ import java.util.ArrayList;
 /**
  *
  */
-public class PetInfoViewFragment extends Fragment {
+public class PetInfoDisplayFragment extends Fragment {
     private static final String TAG = "PetInfoFragment";
     RecyclerView petInfoRV;
     FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder> petInfoFbRecyclerAdapter;
