@@ -13,7 +13,11 @@
         android:id="@+id/mySitter_authorize_textView_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Authorize a Sitter"/>
+        android:text="Authorize a Sitter"
+        android:textSize="15sp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/primary"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/mySitter_enterCode_editText_id"
@@ -33,7 +37,11 @@
         android:id="@+id/mySitter_noCode_textView_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Don't have your sitter's unique code?"/>
+        android:text="Don't have your sitter's unique code?"
+        android:textColor="@color/primary"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"/>
 
     <Button
         android:id="@+id/mySitter_requestCodeButton_id"

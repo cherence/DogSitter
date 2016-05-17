@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.model.Group;
+import com.example.cher.dogsitter.model.OwnerProfile;
+import com.example.cher.dogsitter.model.PetInfo;
 import com.example.cher.dogsitter.model.User;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -34,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
     private Firebase mFirebaseRef; //A reference to the Firebase
     private Firebase userRefFb;
     private Firebase groupRefFb;
-    String fullNameOnFacebook;
-    String emailOnFacebook;
-    String uIdOnFacebook;
-    String groupName;
+    private String fullNameOnFacebook;
+    private String emailOnFacebook;
+    private String uIdOnFacebook;
+    private String groupName;
     User newUser;
     Group newGroup;
-
-
+    private ArrayList<PetInfo> dummyPetInfoArrayList;
+    private PetInfo dummyPetInfoObject;
+    private OwnerProfile dummyOwnerProfile;
     private AuthData mAuthData; //Data from the authenticated user
     private Firebase.AuthStateListener mAuthStateListener; //Listener for Firebase session changes
     private LoginButton mFacebookLoginButton; //The login button for Facebook
@@ -118,27 +121,6 @@ public class MainActivity extends AppCompatActivity {
         mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        /* If a user is currently authenticated, display a logout menu */
-//        if (this.mAuthData != null) {
-//            getMenuInflater().inflate(R.menu.main, menu);
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_logout) {
-//            logout();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     /**
      * Unauthenticate from Firebase and Facebook where necessary.
@@ -238,7 +220,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * creates a user profile for a user that is logging in for the first time.
+     */
     private void createUserProfile(){
+        dummyPetInfoObject = new PetInfo(R.drawable.placeholder_pet_profile,
+                "name", "nicknames", "age", "breed", "color", "weight", "special needs",
+                "allergies", "medication", "injuries", "fears", "hates", "loves", "tricks",
+                "routine", "hideouts");
+        dummyPetInfoArrayList = new ArrayList<>();
+        dummyPetInfoArrayList.add(dummyPetInfoObject);
+        dummyOwnerProfile = new OwnerProfile(dummyPetInfoArrayList);
         ArrayList<String> memberships = new ArrayList<>();
         memberships.add("GROUP" + uIdOnFacebook);
         newUser = User.getInstance();
@@ -247,7 +239,8 @@ public class MainActivity extends AppCompatActivity {
         newUser.setEmailAddy(emailOnFacebook);
         newUser.setMemberships(memberships);
         newUser.setAdmin(true);
-        newUser.setOwnerProfile(null);
+        newUser.setOwnerProfile(dummyOwnerProfile);
+        Log.i(TAG, "createUserProfile: " + dummyOwnerProfile.getPetInfoPage());
         Log.i(TAG, "createUserProfile: " + newUser.getAdmin());
         userRefFb = mFirebaseRef.child("user");
         Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
@@ -266,6 +259,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * creates a group for a new user. the new user is the only member of the group.
+     */
+
     private void createGroupForNewUser(){
         final ArrayList<String> members = new ArrayList<>();
         members.add(uIdOnFacebook);
@@ -282,7 +279,6 @@ public class MainActivity extends AppCompatActivity {
                 Group newGroup = dataSnapshot.getValue(Group.class);
                 Log.i(TAG, "onDataChange: OG member in group" + newGroup.getMembers().get(0));
             }
-
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
@@ -294,3 +290,25 @@ public class MainActivity extends AppCompatActivity {
 
 //facebook app id 243406302682623
 //facebook app secret 040b13edefb76aefd66f3c4416e2b95e
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        /* If a user is currently authenticated, display a logout menu */
+//        if (this.mAuthData != null) {
+//            getMenuInflater().inflate(R.menu.main, menu);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_logout) {
+//            logout();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }

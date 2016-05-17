@@ -22,6 +22,10 @@ public class OwnerProfile {
     public OwnerProfile() {
     }
 
+    public OwnerProfile(ArrayList<PetInfo> petInfoPage) {
+        this.petInfoPage = petInfoPage;
+    }
+
     public ArrayList<PetInfo> getPetInfoPage() {
         return petInfoPage;
     }

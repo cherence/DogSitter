@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,18 +23,21 @@ import com.example.cher.dogsitter.model.User;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerAdapter;
 
+import java.util.ArrayList;
+
 /**
  *
  */
-public class PetInfoFragment extends Fragment {
+public class PetInfoViewFragment extends Fragment {
     private static final String TAG = "PetInfoFragment";
     RecyclerView petInfoRV;
     FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder> petInfoFbRecyclerAdapter;
-    PetInfo petInfo;
+    PetInfo dummyPetInfoObject;
     Firebase rootFbRef;
     Firebase petInfoFbRef;
     Firebase eachPetInfoFbRef;
     Button editButton;
+    Button addButton;
     ImageView profileImageView;
     EditText nameEditText;
     EditText nickNameEditText;
@@ -52,15 +56,16 @@ public class PetInfoFragment extends Fragment {
     EditText hideoutEditText;
     User newUser;
     Group newGroup;
+    ArrayList<PetInfo> petInfoArrayList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         newUser = User.getInstance();
         newGroup = Group.getInstance();
-        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user");
-//        petInfoFbRef = rootFbRef.child(); <<make this the pet info child/branch
-        petInfo = new PetInfo();
+        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user/" + newUser.getUniqueId() + "/ownerProfile");
+        petInfoFbRef = rootFbRef.child("petInfoPage"); // <<make this the pet info child/branch
+        dummyPetInfoObject = new PetInfo(R.drawable.placeholder_pet_profile, "name", "nicknames", "age", "breed", "color", "weight", "special needs", "allergies", "medication", "injuries", "fears", "hates", "loves", "tricks", "routine", "hideouts");
     }
 
     @Nullable
@@ -68,11 +73,10 @@ public class PetInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pet_info, container, false);
         initializeViews(v);
-        editButton = (Button) v.findViewById(R.id.pet_editButton_id);
-
         Log.i(TAG, "onCreateView: the user's unique id is " + newUser.getUniqueId() + " and the first member of the group that this profile belongs to is " + newGroup.getMembers().get(0));
 
         petInfoRV = (RecyclerView) v.findViewById(R.id.pet_recyclerView_id);
+        petInfoRV.setLayoutManager(new LinearLayoutManager(getContext()));
         petInfoFbRecyclerAdapter = new FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder>(
                 PetInfo.class,
                 R.layout.list_item_pet_info,
@@ -105,14 +109,32 @@ public class PetInfoFragment extends Fragment {
 //        in the case of sitters: their unique ID will be different from the dog owner's so the sitter can't edit any field in dog owner's profile.
         if (newUser.getUniqueId().equals(newGroup.getMembers().get(0))) {
             editButton.setVisibility(View.VISIBLE);
+            addButton.setVisibility(View.VISIBLE);
         }
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makeEditTextsVisible();
+
             }
         });
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                petInfoArrayList = new ArrayList<PetInfo>();
+                petInfoArrayList= newUser.getOwnerProfile().getPetInfoPage();
+                petInfoArrayList.add(dummyPetInfoObject);
+                petInfoFbRef.setValue(petInfoArrayList);
+
+
+
+//                petInfoArrayList.add(dummyPetInfoObject);
+//                petInfoFbRef.setValue(dummyPetInfoObject);
+
+            }
+        });
+
         return v;
     }
 
@@ -123,6 +145,8 @@ public class PetInfoFragment extends Fragment {
     }
 
     private void initializeViews(View v){
+        addButton = (Button) v.findViewById(R.id.pet_addButton_id);
+        editButton = (Button) v.findViewById(R.id.pet_editButton_id);
         nameEditText = (EditText) v.findViewById(R.id.pet_name_editText_id);
         nickNameEditText = (EditText) v.findViewById(R.id.pet_nickName_editText_id);
         ageEditText = (EditText) v.findViewById(R.id.pet_age_editText_id);

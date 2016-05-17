@@ -29,14 +29,6 @@ public class User {
         return user;
     }
 
-    public User(String uniqueId, String fullUserName, String emailAddy, ArrayList<String> memberships, Boolean admin) {
-        this.uniqueId = uniqueId;
-        this.fullUserName = fullUserName;
-        this.emailAddy = emailAddy;
-        this.memberships = memberships;
-        this.admin = admin;
-    }
-
     public User(String uniqueId, String fullUserName, String emailAddy, ArrayList<String> memberships, Boolean admin, OwnerProfile ownerProfile) {
         this.uniqueId = uniqueId;
         this.fullUserName = fullUserName;

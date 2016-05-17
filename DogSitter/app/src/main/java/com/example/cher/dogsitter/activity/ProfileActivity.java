@@ -4,16 +4,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -22,7 +19,7 @@ import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.fragment.ChatFragment;
 import com.example.cher.dogsitter.fragment.MySitterFragment;
 import com.example.cher.dogsitter.fragment.OwnerInfoFragment;
-import com.example.cher.dogsitter.fragment.PetInfoFragment;
+import com.example.cher.dogsitter.fragment.PetInfoViewFragment;
 import com.example.cher.dogsitter.fragment.SitterInfoFragment;
 import com.example.cher.dogsitter.model.Group;
 import com.example.cher.dogsitter.model.User;
@@ -40,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     String selectionExtra;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    PetInfoFragment petInfoFragment;
+    PetInfoViewFragment petInfoViewFragment;
     SitterInfoFragment sitterInfoFragment;
     ChatFragment chatFragment;
     OwnerInfoFragment ownerInfoFragment;
@@ -86,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initializeFragments(){
-        petInfoFragment = new PetInfoFragment();
+        petInfoViewFragment = new PetInfoViewFragment();
         sitterInfoFragment = new SitterInfoFragment();
         chatFragment = new ChatFragment();
         ownerInfoFragment = new OwnerInfoFragment();
@@ -124,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.profile_container_id, mySitterFragment);
                 break;
             case R.id.drawer_dog_id:
-                fragmentTransaction.replace(R.id.profile_container_id, petInfoFragment);
+                fragmentTransaction.replace(R.id.profile_container_id, petInfoViewFragment);
                 break;
             case R.id.drawer_owner_id:
                 fragmentTransaction.replace(R.id.profile_container_id, ownerInfoFragment);
@@ -187,9 +184,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void createAndSetNaviBar(){
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, android.R.drawable.ic_media_play, R.color.primary);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, android.R.drawable.ic_media_pause, R.color.primary_dark);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, android.R.drawable.ic_media_ff, R.color.primary_light);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.icon_owner_48, R.color.primary);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.icon_sitter_48, R.color.primary_dark);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.icon_chat_48, R.color.primary_light);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -206,7 +203,7 @@ public class ProfileActivity extends AppCompatActivity {
                 setFragmentLogistics();
                 fragmentTransaction.addToBackStack(null); //might go right above fragmenttransaction.commit
                 if (position == 0){
-                    fragmentTransaction.replace(R.id.profile_container_id, petInfoFragment);
+                    fragmentTransaction.replace(R.id.profile_container_id, petInfoViewFragment);
                 } else if (position == 1){
                     fragmentTransaction.replace(R.id.profile_container_id, sitterInfoFragment);
                 } else if (position == 2){
@@ -227,7 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
         setFragmentLogistics();
         switch (selectionExtra){
             case "My Owner Profile":
-                fragmentTransaction.add(R.id.profile_container_id, petInfoFragment);
+                fragmentTransaction.add(R.id.profile_container_id, petInfoViewFragment);
                 break;
             case "My Sitter Profile":
                 fragmentTransaction.add(R.id.profile_container_id, sitterInfoFragment);
