@@ -15,13 +15,17 @@ import android.view.MenuItem;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.cher.dogsitter.Interface.OnAddPressedListener;
+import com.example.cher.dogsitter.Interface.OnPetSelectedListener;
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.fragment.ChatFragment;
 import com.example.cher.dogsitter.fragment.MySitterFragment;
 import com.example.cher.dogsitter.fragment.OwnerInfoFragment;
 import com.example.cher.dogsitter.fragment.PetInfoDisplayFragment;
+import com.example.cher.dogsitter.fragment.PetInfoEditFragment;
 import com.example.cher.dogsitter.fragment.SitterInfoFragment;
 import com.example.cher.dogsitter.model.Group;
+import com.example.cher.dogsitter.model.PetInfo;
 import com.example.cher.dogsitter.model.User;
 import com.example.cher.dogsitter.wishlist.FeedFragment;
 import com.example.cher.dogsitter.wishlist.FirstAidFragment;
@@ -32,12 +36,13 @@ import com.example.cher.dogsitter.wishlist.PottyFragment;
 import com.example.cher.dogsitter.wishlist.StuffFragment;
 import com.example.cher.dogsitter.wishlist.WalkFragment;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements OnPetSelectedListener, OnAddPressedListener {
     AHBottomNavigation bottomNavigation;
     String selectionExtra;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     PetInfoDisplayFragment petInfoDisplayFragment;
+    PetInfoEditFragment petInfoEditFragment;
     SitterInfoFragment sitterInfoFragment;
     ChatFragment chatFragment;
     OwnerInfoFragment ownerInfoFragment;
@@ -239,4 +244,29 @@ public class ProfileActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
     }
 
+    @Override
+    public void onPetSelected(PetInfo petSelected, int position) {
+        setFragmentLogistics();
+        fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+        fragmentTransaction.commit();
+        petInfoEditFragment.setReceivedPetInfo(petSelected);
+    }
+
+//this is the old one w/o position
+//    @Override
+//    public void onPetSelected(PetInfo petSelected) {
+//        setFragmentLogistics();
+//        fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+//        fragmentTransaction.commit();
+//        petInfoEditFragment.setReceivedPetInfo(petSelected);
+//    }
+
+    @Override
+    public void onAddPressed(int buttonId) {
+        setFragmentLogistics();
+        fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+        fragmentTransaction.commit();
+        petInfoEditFragment.setReceivedButtonId(buttonId);
+
+    }
 }

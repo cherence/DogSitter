@@ -13,27 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/pet_addButton_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create Dog Profile"
-                android:visibility="invisible"/>
-            <Button
-                android:id="@+id/pet_editButton_id"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/icon_edit_48"
-                android:layout_alignParentRight="true"
-                android:visibility="invisible"/>
-
-        </RelativeLayout>
-
         <TextView
             android:id="@+id/pet_dogTitle_textView_id"
             android:layout_width="match_parent"
@@ -50,6 +29,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/pet_fab_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@color/icons"
+            android:visibility="gone"
+
+            />
 
     </LinearLayout>
 
