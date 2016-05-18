@@ -4,6 +4,7 @@ package com.example.cher.dogsitter.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,31 +14,43 @@ import android.widget.ImageView;
 
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.model.PetInfo;
+import com.example.cher.dogsitter.model.User;
+import com.firebase.client.Firebase;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PetInfoEditFragment extends Fragment {
-    Button soleButton;
-    ImageView profileImageView;
-    EditText nameEditText;
-    EditText nickNameEditText;
-    EditText ageEditText;
-    EditText weightEditText;
-    EditText breedEditText;
-    EditText specialNeedsEditText;
-    EditText allergiesEditText;
-    EditText medicationEditText;
-    EditText injuriesEditText;
-    EditText fearsEditText;
-    EditText hatesEditText;
-    EditText lovesEditText;
-    EditText tricksEditText;
-    EditText routineEditText;
-    EditText hideoutEditText;
-    PetInfo receivedPetInfo;
-    int receivedButtonId;
-    int receivedFbPosition;
+    private static final String TAG = "PetInfoEditFragment";
+    private Button soleButton;
+    private ImageView profileImageView;
+    private EditText nameEditText;
+    private EditText nickNameEditText;
+    private EditText ageEditText;
+    private EditText weightEditText;
+    private EditText breedEditText;
+    private EditText colorEditText;
+    private EditText specialNeedsEditText;
+    private EditText allergiesEditText;
+    private EditText medicationEditText;
+    private EditText injuriesEditText;
+    private EditText fearsEditText;
+    private EditText hatesEditText;
+    private EditText lovesEditText;
+    private EditText tricksEditText;
+    private EditText routineEditText;
+    private EditText hideoutEditText;
+    private PetInfo receivedPetInfo;
+    private PetInfo updatePetInfo;
+    private PetInfo createPetInfo;
+    private int receivedButtonId;
+    private Firebase receivedRef;
+    private Firebase rootFbRef;
+    private Firebase petInfoFbRef;
+    private User newUser;
+    private ArrayList<PetInfo> petInfoArrayList;
 
 
     public PetInfoEditFragment() {
@@ -47,6 +60,9 @@ public class PetInfoEditFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        newUser = User.getInstance();
+        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user/" + newUser.getUniqueId() + "/ownerProfile");
+        petInfoFbRef = rootFbRef.child("petInfoPage");
         receivedButtonId = -122484;
 //        receivedPetInfo = new PetInfo();
     }
@@ -56,7 +72,7 @@ public class PetInfoEditFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_pet_info_edit, container, false);
         initializeViews(v);
         if (receivedPetInfo != null){ //if receivedPetInfo object exists then set the hints.
-            setHints();
+            prefillEditText();
         }
         setButton();
         return v;
@@ -76,6 +92,7 @@ public class PetInfoEditFragment extends Fragment {
         ageEditText = (EditText) v.findViewById(R.id.pet_age_editText_id);
         weightEditText = (EditText) v.findViewById(R.id.pet_weight_editText_id);
         breedEditText = (EditText) v.findViewById(R.id.pet_breed_editText_id);
+        colorEditText = (EditText) v.findViewById(R.id.pet_color_editText_id);
         specialNeedsEditText = (EditText) v.findViewById(R.id.pet_specialNeeds_editText_id);
         allergiesEditText = (EditText) v.findViewById(R.id.pet_allergies_editText_id);
         medicationEditText = (EditText) v.findViewById(R.id.pet_medication_editText_id);
@@ -94,11 +111,21 @@ public class PetInfoEditFragment extends Fragment {
 
     public void setReceivedPetInfo(PetInfo receivedPetInfo) {
         if (receivedPetInfo != null){ //if  receivedPetInfo object exists then set hints
-            setHints();
+            prefillEditText();
+            Log.i(TAG, "receivedPetInfo != null " + receivedPetInfo.getName());
         } else {
             this.receivedPetInfo = receivedPetInfo; //if receivedPetInfo object doesn't exist yet, then set object to object.
+            Log.i(TAG, "receivedPetInfo == null ");
         }
 
+    }
+
+    public Firebase getReceivedRef() {
+        return receivedRef;
+    }
+
+    public void setReceivedRef(Firebase receivedRef) {
+        this.receivedRef = receivedRef;
     }
 
     public int getReceivedButtonId() {
@@ -109,13 +136,14 @@ public class PetInfoEditFragment extends Fragment {
         this.receivedButtonId = receivedButtonId;
     }
 
-    public void setHints(){
+    public void prefillEditText(){
         profileImageView.setImageResource(receivedPetInfo.getPetPhoto());
         nameEditText.setText(receivedPetInfo.getName());
         nickNameEditText.setText(receivedPetInfo.getNickname());
         ageEditText.setText(receivedPetInfo.getAge());
         weightEditText.setText(receivedPetInfo.getWeight());
         breedEditText.setText(receivedPetInfo.getBreed());
+        colorEditText.setText(receivedPetInfo.getColor());
         specialNeedsEditText.setText(receivedPetInfo.getSpecialNeeds());
         allergiesEditText.setText(receivedPetInfo.getAllergies());
         medicationEditText.setText(receivedPetInfo.getMedication());
@@ -135,7 +163,26 @@ public class PetInfoEditFragment extends Fragment {
                 soleButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //update firebase to change existing profile
+                        //update firebase to change existing profile at the receivedPosition position.
+                        updatePetInfo = new PetInfo(
+                                R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
+                                nameEditText.getText().toString(),
+                                nickNameEditText.getText().toString(),
+                                ageEditText.getText().toString(),
+                                weightEditText.getText().toString(),
+                                breedEditText.getText().toString(),
+                                colorEditText.getText().toString(),
+                                specialNeedsEditText.getText().toString(),
+                                allergiesEditText.getText().toString(),
+                                medicationEditText.getText().toString(),
+                                injuriesEditText.getText().toString(),
+                                fearsEditText.getText().toString(),
+                                hatesEditText.getText().toString(),
+                                lovesEditText.getText().toString(),
+                                tricksEditText.getText().toString(),
+                                routineEditText.getText().toString(),
+                                hideoutEditText.getText().toString());
+                        receivedRef.setValue(updatePetInfo);
                     }
                 });
                 break;
@@ -145,15 +192,38 @@ public class PetInfoEditFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //update firebase to add a new dog profile
+                        createPetInfo = new PetInfo(
+                                R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
+                                nameEditText.getText().toString(),
+                                nickNameEditText.getText().toString(),
+                                ageEditText.getText().toString(),
+                                weightEditText.getText().toString(),
+                                breedEditText.getText().toString(),
+                                colorEditText.getText().toString(),
+                                specialNeedsEditText.getText().toString(),
+                                allergiesEditText.getText().toString(),
+                                medicationEditText.getText().toString(),
+                                injuriesEditText.getText().toString(),
+                                fearsEditText.getText().toString(),
+                                hatesEditText.getText().toString(),
+                                lovesEditText.getText().toString(),
+                                tricksEditText.getText().toString(),
+                                routineEditText.getText().toString(),
+                                hideoutEditText.getText().toString());
+                        petInfoArrayList = new ArrayList<PetInfo>();
+                        petInfoArrayList = newUser.getOwnerProfile().getPetInfoPage();
+                        petInfoArrayList.add(createPetInfo);
+                        petInfoFbRef.setValue(petInfoArrayList);
                     }
                 });
                 break;
         }
     }
 
+
 }
 
-/*
+/* =================BANK===================
 nameEditText.setHint(receivedPetInfo.getName());
         nickNameEditText.setHint(receivedPetInfo.getNickname());
         ageEditText.setHint(receivedPetInfo.getAge());

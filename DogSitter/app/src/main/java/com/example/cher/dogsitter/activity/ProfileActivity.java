@@ -35,6 +35,7 @@ import com.example.cher.dogsitter.wishlist.MedicineFragment;
 import com.example.cher.dogsitter.wishlist.PottyFragment;
 import com.example.cher.dogsitter.wishlist.StuffFragment;
 import com.example.cher.dogsitter.wishlist.WalkFragment;
+import com.firebase.client.Firebase;
 
 public class ProfileActivity extends AppCompatActivity implements OnPetSelectedListener, OnAddPressedListener {
     AHBottomNavigation bottomNavigation;
@@ -89,6 +90,7 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
 
     private void initializeFragments(){
         petInfoDisplayFragment = new PetInfoDisplayFragment();
+        petInfoEditFragment = new PetInfoEditFragment();
         sitterInfoFragment = new SitterInfoFragment();
         chatFragment = new ChatFragment();
         ownerInfoFragment = new OwnerInfoFragment();
@@ -245,21 +247,13 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
     }
 
     @Override
-    public void onPetSelected(PetInfo petSelected, int position) {
+    public void onPetSelected(PetInfo petSelected, Firebase refToItemPressed) {
         setFragmentLogistics();
         fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
         fragmentTransaction.commit();
         petInfoEditFragment.setReceivedPetInfo(petSelected);
+        petInfoEditFragment.setReceivedRef(refToItemPressed);
     }
-
-//this is the old one w/o position
-//    @Override
-//    public void onPetSelected(PetInfo petSelected) {
-//        setFragmentLogistics();
-//        fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
-//        fragmentTransaction.commit();
-//        petInfoEditFragment.setReceivedPetInfo(petSelected);
-//    }
 
     @Override
     public void onAddPressed(int buttonId) {

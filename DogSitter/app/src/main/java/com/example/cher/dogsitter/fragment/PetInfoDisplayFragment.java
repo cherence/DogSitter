@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,19 +37,20 @@ import java.util.ArrayList;
  */
 public class PetInfoDisplayFragment extends Fragment {
     private static final String TAG = "PetInfoFragment";
-    RecyclerView petInfoRV;
-    FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder> petInfoFbRecyclerAdapter;
-    PetInfo dummyPetInfoObject;
-    Firebase rootFbRef;
-    Firebase petInfoFbRef;
-    Firebase eachPetInfoFbRef;
-    Button fab;
-    OnPetSelectedListener mPetSelectedListener;
-    OnAddPressedListener mAddPressedListener;
-    User newUser;
-    Group newGroup;
-    ArrayList<PetInfo> petInfoArrayList;
-    PetInfoEditFragment petInfoEditFragment;
+    private RecyclerView petInfoRV;
+    private FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder> petInfoFbRecyclerAdapter;
+    private PetInfo dummyPetInfoObject;
+    private Firebase rootFbRef;
+    private Firebase petInfoFbRef;
+    private Firebase eachPetInfoFbRef;
+    private Firebase refToItemClicked;
+    private FloatingActionButton fab;
+    private OnPetSelectedListener mPetSelectedListener;
+    private OnAddPressedListener mAddPressedListener;
+    private User newUser;
+    private Group newGroup;
+    private ArrayList<PetInfo> petInfoArrayList;
+    private PetInfoEditFragment petInfoEditFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,12 +100,12 @@ public class PetInfoDisplayFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Log.i(TAG, "position clicked was " + i);
-                        Firebase refToItemClicked = petInfoFbRecyclerAdapter.getRef(i);
+                        refToItemClicked = petInfoFbRecyclerAdapter.getRef(i);
                         refToItemClicked.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 dummyPetInfoObject = dataSnapshot.getValue(PetInfo.class);
-                                mPetSelectedListener.onPetSelected(dummyPetInfoObject, i);
+                                mPetSelectedListener.onPetSelected(dummyPetInfoObject, refToItemClicked);
                                 Log.i(TAG, "the petInfo stored in the dummyPetInfoObject is " + dummyPetInfoObject.getName());
                             }
 
@@ -122,6 +124,7 @@ public class PetInfoDisplayFragment extends Fragment {
         if (newUser.getUniqueId().equals(newGroup.getMembers().get(0))) {
             fab.setVisibility(View.VISIBLE);
         }
+        setAddOnClickListener();
         return v;
     }
 
@@ -132,7 +135,7 @@ public class PetInfoDisplayFragment extends Fragment {
     }
 
     private void initializeViews(View v){
-        fab = (Button) v.findViewById(R.id.pet_fab_id);
+        fab = (FloatingActionButton) v.findViewById(R.id.pet_fab_id);
         petInfoEditFragment = new PetInfoEditFragment();
     }
 
@@ -150,7 +153,7 @@ public class PetInfoDisplayFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context) { //do these need to be in 2 different try/catch?
         super.onAttach(context);
         try {
             mPetSelectedListener = (OnPetSelectedListener) getActivity();
@@ -168,7 +171,7 @@ public class PetInfoDisplayFragment extends Fragment {
 }
 
 
-/*
+/* =================BANK===================
 mRecycleViewAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(Chat.class, R.layout.message, ChatHolder.class, mChatRef) {
 @Override
 public void populateViewHolder(ChatHolder chatView, Chat chat, final int position) {
