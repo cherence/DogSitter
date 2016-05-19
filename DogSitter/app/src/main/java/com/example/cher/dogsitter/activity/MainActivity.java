@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private String emailOnFacebook;
     private String uIdOnFacebook;
     private String groupName;
-    User newUser;
-    Group newGroup;
+    private User newUser;
+    private Group newGroup;
     private ArrayList<PetInfo> dummyPetInfoArrayList;
     private PetInfo dummyPetInfoObject;
     private OwnerProfile dummyOwnerProfile;
@@ -243,13 +243,26 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "createUserProfile: " + dummyOwnerProfile.getPetInfoPage());
         Log.i(TAG, "createUserProfile: " + newUser.getAdmin());
         userRefFb = mFirebaseRef.child("user");
-        Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
-        specificUserRefFb.setValue(newUser);
-        specificUserRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
+        userRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User newUser = dataSnapshot.getValue(User.class);
-                Log.i(TAG, "onDataChange:" + newUser);
+                Log.i(TAG, "onDataChange: userRefFb has no children so make a new user");
+                if(!dataSnapshot.hasChildren()){
+                    Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
+                    specificUserRefFb.setValue(newUser);
+                    specificUserRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User newUser = dataSnapshot.getValue(User.class);
+                            Log.i(TAG, "onDataChange:" + newUser);
+                        }
+
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
+
+                        }
+                    });
+                }
             }
 
             @Override
@@ -257,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     /**
@@ -271,19 +285,34 @@ public class MainActivity extends AppCompatActivity {
         newGroup.setName(groupName);
         newGroup.setMembers(members);
         groupRefFb = mFirebaseRef.child("group");
-        Firebase specificGroupRefFb = groupRefFb.child(groupName);
-        specificGroupRefFb.setValue(newGroup);
-        specificGroupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
+        groupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Group newGroup = dataSnapshot.getValue(Group.class);
-                Log.i(TAG, "onDataChange: OG member in group" + newGroup.getMembers().get(0));
+                Log.i(TAG, "onDataChange: groupRefFb has no children so make a new group for the user");
+                if(!dataSnapshot.hasChildren()){
+                    Firebase specificGroupRefFb = groupRefFb.child(groupName);
+                    specificGroupRefFb.setValue(newGroup);
+                    specificGroupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Group newGroup = dataSnapshot.getValue(Group.class);
+                            Log.i(TAG, "onDataChange: OG member in group" + newGroup.getMembers().get(0));
+                        }
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
+
+                        }
+                    });
+
+                }
             }
+
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 
             }
         });
+
     }
 }
 

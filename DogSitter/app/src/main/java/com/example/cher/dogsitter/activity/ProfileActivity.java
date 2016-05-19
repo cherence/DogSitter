@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -38,30 +39,51 @@ import com.example.cher.dogsitter.wishlist.WalkFragment;
 import com.firebase.client.Firebase;
 
 public class ProfileActivity extends AppCompatActivity implements OnPetSelectedListener, OnAddPressedListener {
-    AHBottomNavigation bottomNavigation;
-    String selectionExtra;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    PetInfoDisplayFragment petInfoDisplayFragment;
-    PetInfoEditFragment petInfoEditFragment;
-    SitterInfoFragment sitterInfoFragment;
-    ChatFragment chatFragment;
-    OwnerInfoFragment ownerInfoFragment;
-    MySitterFragment mySitterFragment;
-    FeedFragment feedFragment;
-    FirstAidFragment firstAidFragment;
-    GroomFragment groomFragment;
-    HouseFragment houseFragment;
-    MedicineFragment medicineFragment;
-    PottyFragment pottyFragment;
-    StuffFragment stuffFragment;
-    WalkFragment walkFragment;
-    User user;
-    Group group;
-    Toolbar toolbar;
-    DrawerLayout drawer;
-    NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
+    private static final String TAG = "ProfileActivity";
+    public static final String BUNDLE_KEY = "key for the entire bundle";
+    public static final String KEY_PHOTO = "petPhoto";
+//    private static final String KEY_NAME = "NAME";
+//    private static final String KEY_NICKNAME = "";
+//    private static final String KEY_AGE = "";
+//    private static final String KEY_BREED = "";
+//    private static final String KEY_COLOR = "";
+//    private static final String KEY_WEIGHT = "";
+//    private static final String KEY_SPECIAL_NEEDS = "";
+//    private static final String KEY_ALLERGIES = "";
+//    private static final String KEY_MEDICATION = "";
+//    private static final String KEY_INJURIES = "";
+//    private static final String KEY_FEARS = "";
+//    private static final String KEY_HATES = "";
+//    private static final String KEY_LOVES = "";
+//    private static final String KEY_TRICKS = "";
+//    private static final String KEY_ROUTINE = "";
+//    private static final String KEY_HIDINGSPOTS = "";
+
+
+    private AHBottomNavigation bottomNavigation;
+    private String selectionExtra;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private PetInfoDisplayFragment petInfoDisplayFragment;
+    private PetInfoEditFragment petInfoEditFragment;
+    private SitterInfoFragment sitterInfoFragment;
+    private ChatFragment chatFragment;
+    private OwnerInfoFragment ownerInfoFragment;
+    private MySitterFragment mySitterFragment;
+    private FeedFragment feedFragment;
+    private FirstAidFragment firstAidFragment;
+    private GroomFragment groomFragment;
+    private HouseFragment houseFragment;
+    private MedicineFragment medicineFragment;
+    private PottyFragment pottyFragment;
+    private StuffFragment stuffFragment;
+    private WalkFragment walkFragment;
+    private User user;
+    private Group group;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle drawerToggle;
 
     //declare sitter info fragment.
 
@@ -249,16 +271,34 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
     @Override
     public void onPetSelected(PetInfo petSelected, Firebase refToItemPressed) {
         setFragmentLogistics();
+        Bundle bundle = new Bundle();
+        int photoBundle = petSelected.getPetPhoto();
+        String[] dataBundle = {petSelected.getName(),
+                petSelected.getNickname(), petSelected.getAge(), petSelected.getBreed(),
+                petSelected.getColor(), petSelected.getWeight(), petSelected.getSpecialNeeds(),
+                petSelected.getAllergies(), petSelected.getMedication(), petSelected.getInjuries(),
+                petSelected.getFears(), petSelected.getHates(), petSelected.getLoves(),
+                petSelected.getTricks(), petSelected.getRoutine(), petSelected.getHidingSpots()};
+        bundle.putStringArray(BUNDLE_KEY, dataBundle);
+        bundle.putString("KEY_REF",refToItemPressed.getKey());
+        bundle.putInt(KEY_PHOTO, photoBundle);
+//        bundle.putString("NAME",petSelected.getName());
+//        bundle.putString("AGE", petSelected.getAge());
+        Log.i(TAG, "onPetSelected: " + refToItemPressed.getKey());
+        petInfoEditFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        petInfoEditFragment.setReceivedPetInfo(petSelected);
-        petInfoEditFragment.setReceivedRef(refToItemPressed);
+
+//        petInfoEditFragment.setReceivedPetInfo(petSelected);
+//        petInfoEditFragment.setReceivedRef(refToItemPressed);
     }
 
     @Override
     public void onAddPressed(int buttonId) {
         setFragmentLogistics();
         fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         petInfoEditFragment.setReceivedButtonId(buttonId);
 

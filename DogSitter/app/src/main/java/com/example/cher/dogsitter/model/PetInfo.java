@@ -5,23 +5,23 @@ package com.example.cher.dogsitter.model;
  * Created by leisforkokomo on 5/8/16.
  */
 public class PetInfo {
-    int petPhoto;
-    String name;
-    String nickname;
-    String age;
-    String breed;
-    String color;
-    String weight;
-    String specialNeeds;
-    String allergies;
-    String medication;
-    String injuries;
-    String fears;
-    String hates;
-    String loves;
-    String tricks;
-    String routine;
-    String hidingSpots;
+    private int petPhoto;
+    private String name;
+    private String nickname;
+    private String age;
+    private String breed;
+    private String color;
+    private String weight;
+    private String specialNeeds;
+    private String allergies;
+    private String medication;
+    private String injuries;
+    private String fears;
+    private String hates;
+    private String loves;
+    private String tricks;
+    private String routine;
+    private String hidingSpots;
 
 
     public PetInfo() {
