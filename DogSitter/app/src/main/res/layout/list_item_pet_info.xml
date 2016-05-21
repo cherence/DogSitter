@@ -73,17 +73,6 @@
             android:layout_below="@id/pet_nickName_textView_id"
             android:text="6"/>
 
-        <EditText
-            android:id="@+id/pet_age_editText_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/pet_nickName_textView_id"
-            android:layout_toEndOf="@id/pet_ageLabel_textView_id"
-            android:textAlignment="center"
-            android:hint="How old is your dog?"
-            android:visibility="gone"
-            />
-
         <TextView
             android:id="@+id/pet_weightLabel_textView_id"
             android:layout_width="wrap_content"

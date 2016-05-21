@@ -22,7 +22,7 @@ public class OwnerProfile {
     public OwnerProfile() {
     }
 
-    public OwnerProfile(ArrayList<PetInfo> petInfoPage) {
+    public OwnerProfile(ArrayList<PetInfo> petInfoPage) { //constructor
         this.petInfoPage = petInfoPage;
     }
 

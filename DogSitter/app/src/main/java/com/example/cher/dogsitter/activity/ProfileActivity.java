@@ -88,7 +88,6 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout_id);
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
-
         navigationView = (NavigationView) findViewById(R.id.nvView_id);
         setUpDrawerContent(navigationView);
     }
@@ -288,11 +287,11 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
 
 /* ======================BANK======================
 
-//        bundle.putString("NAME",petSelected.getName());
-//        bundle.putString("AGE", petSelected.getAge());
-//        petInfoEditFragment.setReceivedPetInfo(petSelected);
-//        petInfoEditFragment.setReceivedRef(refToItemPressed);
-        petInfoEditFragment.setReceivedButtonId(buttonId);
+//    bundle.putString("NAME",petSelected.getName());
+//    bundle.putString("AGE", petSelected.getAge());
+//    petInfoEditFragment.setReceivedPetInfo(petSelected);
+//    petInfoEditFragment.setReceivedRef(refToItemPressed);
+      petInfoEditFragment.setReceivedButtonId(buttonId);
 
 //    private static final String KEY_NAME = "NAME";
 //    private static final String KEY_NICKNAME = "";
@@ -310,7 +309,7 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
 //    private static final String KEY_TRICKS = "";
 //    private static final String KEY_ROUTINE = "";
 //    private static final String KEY_HIDINGSPOTS = "";
-    //    private static final String KEY_NICKNAME = "";
+//    private static final String KEY_NICKNAME = "";
 //    private static final String KEY_AGE = "";
 //    private static final String KEY_BREED = "";
 //    private static final String KEY_COLOR = "";

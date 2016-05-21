@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="2dp"
+    android:layout_gravity="center"
+    android:elevation="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/owner_ownerTitle_tV_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pet_profile_ImageView_id"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Owner Information"/>
+
+        <TextView
+            android:id="@+id/owner_nameLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_ownerTitle_tV_id"
+            android:textStyle="bold"
+            android:text="Name: "/>
+
+        <TextView
+            android:id="@+id/owner_name_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@id/owner_ownerTitle_tV_id"
+            android:layout_toEndOf="@id/owner_nameLabel_tV_id"
+            android:text="Cher Flores"/>
+
+        <TextView
+            android:id="@+id/owner_cell1Label_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_name_tV_id"
+            android:text="Mobile: "/>
+
+        <TextView
+            android:id="@+id/owner_cell1_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_cell1Label_tV_id"
+            android:layout_below="@id/owner_name_tV_id"
+            android:text="650-555-5555"/>
+
+        <TextView
+            android:id="@+id/owner_cell2Label_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_cell1_tV_id"
+            android:text="Phone: "/>
+
+        <TextView
+            android:id="@+id/owner_cell2_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_cell2Label_tV_id"
+            android:layout_below="@id/owner_cell1_tV_id"
+            android:text="415-555-5555"/>
+
+        <TextView
+            android:id="@+id/owner_addyStLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_cell2_tV_id"
+            android:text="Address: "/>
+
+        <TextView
+            android:id="@+id/owner_addySt_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyStLabel_tV_id"
+            android:layout_below="@id/owner_cell2_tV_id"
+            android:text="123 Main Street"/>
+
+        <TextView
+            android:id="@+id/owner_addyCity_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/owner_addyStLabel_tV_id"
+            android:layout_below="@id/owner_addySt_tV_id"
+            android:text="San Francisco"/>
+
+        <TextView
+            android:id="@+id/owner_addyComma_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyCity_tV_id"
+            android:layout_below="@id/owner_addySt_tV_id"
+            android:text=" ,"/>
+
+        <TextView
+            android:id="@+id/owner_addyState_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyComma_tV_id"
+            android:layout_below="@id/owner_addySt_tV_id"
+            android:text="CA"/>
+
+        <TextView
+            android:id="@+id/owner_addyZip_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyState_tV_id"
+            android:layout_below="@id/owner_addySt_tV_id"
+            android:text="94015"/>
+
+        <TextView
+            android:id="@+id/owner_eCTitle_tV_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/owner_addyZip_tV_id"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="16dp"
+            android:text="Emergency Contact Information"/>
+
+
+        <TextView
+            android:id="@+id/owner_nameEcLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_eCTitle_tV_id"
+            android:text="Name: "/>
+
+        <TextView
+            android:id="@+id/owner_nameEc_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_nameEcLabel_tV_id"
+            android:layout_below="@id/owner_eCTitle_tV_id"
+            android:text="Florence Flores"/>
+
+        <TextView
+            android:id="@+id/owner_phoneEcLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_nameEc_tV_id"
+            android:text="Mobile: "/>
+
+        <TextView
+            android:id="@+id/owner_phoneEc_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_phoneEcLabel_tV_id"
+            android:layout_below="@id/owner_nameEc_tV_id"
+            android:text="650-555-5555"/>
+
+        <TextView
+            android:id="@+id/owner_workPhEcLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_phoneEc_tV_id"
+            android:text="Phone: "/>
+
+        <TextView
+            android:id="@+id/owner_workPhEc_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_workPhEcLabel_tV_id"
+            android:layout_below="@id/owner_phoneEc_tV_id"
+            android:text="925-555-5555"/>
+
+        <TextView
+            android:id="@+id/owner_addyEcLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_workPhEc_tV_id"
+            android:text="Address: "/>
+
+        <TextView
+            android:id="@+id/owner_addyEcSt_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyEcLabel_tV_id"
+            android:layout_below="@id/owner_workPhEc_tV_id"
+            android:text="123 Main Street"/>
+
+        <TextView
+            android:id="@+id/owner_addyEcCity_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/owner_addyEcLabel_tV_id"
+            android:layout_below="@id/owner_addyEcSt_tV_id"
+            android:text="Beverly Hills"/>
+
+        <TextView
+            android:id="@+id/owner_addyEcComma_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyEcCity_tV_id"
+            android:layout_below="@id/owner_addyEcSt_tV_id"
+            android:text=" ,"/>
+
+        <TextView
+            android:id="@+id/owner_addyEcState_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyEcComma_tV_id"
+            android:layout_below="@id/owner_addyEcSt_tV_id"
+            android:text="CA"/>
+
+        <TextView
+            android:id="@+id/owner_addyEcZip_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_addyEcState_tV_id"
+            android:layout_below="@id/owner_addyEcSt_tV_id"
+            android:text="90210"/>
+
+        <TextView
+            android:id="@+id/owner_itineraryTitle_tV_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/owner_addyEcZip_tV_id"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/primary"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="16dp"
+            android:text="Itinerary"/>
+
+        <TextView
+            android:id="@+id/owner_tripStartDateLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_itineraryTitle_tV_id"
+            android:text="Start Date: "/>
+
+        <TextView
+            android:id="@+id/owner_tripStartDate_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_tripStartDateLabel_tV_id"
+            android:layout_below="@id/owner_itineraryTitle_tV_id"
+            android:text="Friday, May 13, 2016"/>
+
+        <TextView
+            android:id="@+id/owner_tripStartTimeLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_tripStartDate_tV_id"
+            android:text="Start Time: "/>
+
+        <TextView
+            android:id="@+id/owner_tripStartTime_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_tripStartTimeLabel_tV_id"
+            android:layout_below="@id/owner_tripStartDate_tV_id"
+            android:text="3pm"/>
+
+        <TextView
+            android:id="@+id/owner_tripEndDateLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_tripStartTime_tV_id"
+            android:text="End Date: "/>
+
+        <TextView
+            android:id="@+id/owner_tripEndDate_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_tripEndDateLabel_tV_id"
+            android:layout_below="@id/owner_tripStartTime_tV_id"
+            android:text="Monday, May 16, 2016"/>
+
+        <TextView
+            android:id="@+id/owner_tripEndTimeLabel_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_tripEndDate_tV_id"
+            android:text="End Time: "/>
+
+        <TextView
+            android:id="@+id/owner_tripEndTime_tV_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_tripEndTimeLabel_tV_id"
+            android:layout_below="@id/owner_tripEndDate_tV_id"
+            android:text="7pm"/>
+
+        <TextView
+            android:id="@+id/owner_destinationLabel_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_tripEndTime_tV_id"
+            android:text="Destination: "/>
+
+        <TextView
+            android:id="@+id/owner_destination_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_destinationLabel_tv_id"
+            android:layout_below="@id/owner_tripEndTime_tV_id"
+            android:text="New York, NY"/>
+
+        <TextView
+            android:id="@+id/owner_stayNameLabel_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/owner_destination_tv_id"
+            android:text="Accommodations: "/>
+
+        <TextView
+            android:id="@+id/owner_stayName_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_toEndOf="@id/owner_stayNameLabel_tv_id"
+            android:layout_below="@id/owner_destination_tv_id"
+            android:text="Hilton Uptown"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
