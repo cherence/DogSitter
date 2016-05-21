@@ -64,8 +64,9 @@ public class SitterInfoFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_sitter_info, container, false);
 
         newUser = User.getInstance();
+        String newUserUniqueId = newUser.getUniqueId();
         userFbRef = new Firebase("https://dogsitter.firebaseio.com/user");
-        specificUserFbRef = userFbRef.child(newUser.getUniqueId());
+        specificUserFbRef = userFbRef.child(newUserUniqueId);
 
         shareCodeButton = (Button) v.findViewById(R.id.sitterFrag_shareCode_button_id);
 

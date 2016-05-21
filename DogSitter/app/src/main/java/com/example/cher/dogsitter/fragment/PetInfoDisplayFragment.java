@@ -22,6 +22,8 @@ import com.example.cher.dogsitter.Interface.OnPetSelectedListener;
 import com.example.cher.dogsitter.PetInfoRVHolder;
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.model.Group;
+import com.example.cher.dogsitter.model.OwnerInfo;
+import com.example.cher.dogsitter.model.OwnerProfile;
 import com.example.cher.dogsitter.model.PetInfo;
 import com.example.cher.dogsitter.model.User;
 import com.firebase.client.DataSnapshot;
@@ -55,11 +57,7 @@ public class PetInfoDisplayFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newUser = User.getInstance();
-        newGroup = Group.getInstance();
-        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user/" + newUser.getUniqueId() + "/ownerProfile");
-        petInfoFbRef = rootFbRef.child("petInfoPage"); // <<make this the pet info child/branch
-//        dummyPetInfoObject = new PetInfo(R.drawable.placeholder_pet_profile, "name", "nicknames", "age", "breed", "color", "weight", "special needs", "allergies", "medication", "injuries", "fears", "hates", "loves", "tricks", "routine", "hideouts");
+
     }
 
     @Nullable
@@ -67,8 +65,24 @@ public class PetInfoDisplayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pet_info, container, false);
         initializeViews(v);
-        Log.i(TAG, "onCreateView: the user's unique id is " + newUser.getUniqueId() + " and the first member of the group that this profile belongs to is " + newGroup.getMembers().get(0));
-
+//        Log.i(TAG, "onCreateView: the user's unique id is " + newUser.getUniqueId() + " and the first member of the group that this profile belongs to is " + newGroup.getMembers().get(0));
+        newUser = User.getInstance();
+        newGroup = Group.getInstance();
+        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user/" + newUser.getUniqueId() + "/ownerProfile");
+//        rootFbRef.addValueEventListener(new ValueEventListener() { //will update the newUser singleton used in this fragment.
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                OwnerProfile ownerProfile = dataSnapshot.getValue(OwnerProfile.class);
+//                Log.i(TAG, "onDataChange: this is what's in the datasnapshot--a petInfoPage array the size of " + dataSnapshot.getValue(OwnerProfile.class).getPetInfoPage().size());
+//                ArrayList<PetInfo> newUserPetInfoArray = ownerProfile.getPetInfoPage();
+//                newUser.getOwnerProfile().setPetInfoPage(newUserPetInfoArray); //used to be newUser.getOwnerProfile().getPetInfoPage() = ownerProfile.getPetInfoPage();
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//            }
+//        });
+        petInfoFbRef = rootFbRef.child("petInfoPage"); // <<make this the pet info child/branch
         petInfoRV = (RecyclerView) v.findViewById(R.id.pet_recyclerView_id);
         petInfoRV.setLayoutManager(new LinearLayoutManager(getContext()));
         petInfoFbRecyclerAdapter = new FirebaseRecyclerAdapter<PetInfo, PetInfoRVHolder>(
@@ -85,6 +99,7 @@ public class PetInfoDisplayFragment extends Fragment {
                 petInfoRVHolder.ageTextView.setText(petInfo.getAge());
                 petInfoRVHolder.weightTextView.setText(petInfo.getWeight());
                 petInfoRVHolder.breedTextView.setText(petInfo.getBreed());
+                petInfoRVHolder.colorTextView.setText(petInfo.getColor());
                 petInfoRVHolder.specialNeedsTextView.setText(petInfo.getSpecialNeeds());
                 petInfoRVHolder.allergiesTextView.setText(petInfo.getAllergies());
                 petInfoRVHolder.medicationTextView.setText(petInfo.getMedication());
@@ -125,13 +140,14 @@ public class PetInfoDisplayFragment extends Fragment {
             fab.setVisibility(View.VISIBLE);
         }
         setAddOnClickListener();
+        Log.i(TAG, "onCreateView: size of the petProfile array is " + newUser.getOwnerProfile().getPetInfoPage().size());
         return v;
     }
 
     @Override
     public void onActivityCreated (@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        setRetainInstance(true);
+//        setRetainInstance(true);
     }
 
     private void initializeViews(View v){
@@ -213,4 +229,8 @@ public void onClick(View view) {
 //                petInfoFbRef.setValue(dummyPetInfoObject);
             }
         });
+
+
+ dummyPetInfoObject = new PetInfo(R.drawable.placeholder_pet_profile, "name", "nicknames", "age", "breed", "color",
+// "weight", "special needs", "allergies", "medication", "injuries", "fears", "hates", "loves", "tricks", "routine", "hideouts");
  */

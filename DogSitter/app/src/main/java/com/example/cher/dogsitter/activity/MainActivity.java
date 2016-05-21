@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void createUserProfile(){
         dummyPetInfoObject = new PetInfo(R.drawable.placeholder_pet_profile,
-                "name", "nicknames", "age", "breed", "color", "weight", "special needs",
+                "name", "nicknames", "age", "weight", "breed", "color", "special needs",
                 "allergies", "medication", "injuries", "fears", "hates", "loves", "tricks",
                 "routine", "hideouts");
         dummyPetInfoArrayList = new ArrayList<>();
@@ -246,8 +246,8 @@ public class MainActivity extends AppCompatActivity {
         userRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "onDataChange: userRefFb has no children so make a new user");
                 if(!dataSnapshot.hasChildren()){
+                    Log.i(TAG, "onDataChange: userRefFb has no children so make a new user");
                     Firebase specificUserRefFb = userRefFb.child(uIdOnFacebook);
                     specificUserRefFb.setValue(newUser);
                     specificUserRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -288,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
         groupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "onDataChange: groupRefFb has no children so make a new group for the user");
                 if(!dataSnapshot.hasChildren()){
+                    Log.i(TAG, "onDataChange: groupRefFb has no children so make a new group for the user");
                     Firebase specificGroupRefFb = groupRefFb.child(groupName);
                     specificGroupRefFb.setValue(newGroup);
                     specificGroupRefFb.addListenerForSingleValueEvent(new ValueEventListener() {

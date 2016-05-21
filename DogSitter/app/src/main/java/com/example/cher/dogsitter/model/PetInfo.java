@@ -9,9 +9,9 @@ public class PetInfo {
     private String name;
     private String nickname;
     private String age;
+    private String weight;
     private String breed;
     private String color;
-    private String weight;
     private String specialNeeds;
     private String allergies;
     private String medication;
@@ -27,15 +27,14 @@ public class PetInfo {
     public PetInfo() {
     }
 
-
-    public PetInfo(int petPhoto, String name, String nickname, String age, String breed, String color, String weight, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String tricks, String routine, String hidingSpots) {
+    public PetInfo(int petPhoto, String name, String nickname, String age, String weight, String breed, String color, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String tricks, String routine, String hidingSpots) {
         this.petPhoto = petPhoto;
         this.name = name;
         this.nickname = nickname;
         this.age = age;
+        this.weight = weight;
         this.breed = breed;
         this.color = color;
-        this.weight = weight;
         this.specialNeeds = specialNeeds;
         this.allergies = allergies;
         this.medication = medication;

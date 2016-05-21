@@ -18,9 +18,13 @@ import android.widget.Toast;
 
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.activity.ProfileActivity;
+import com.example.cher.dogsitter.model.OwnerProfile;
 import com.example.cher.dogsitter.model.PetInfo;
 import com.example.cher.dogsitter.model.User;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -29,7 +33,8 @@ import java.util.ArrayList;
  */
 public class PetInfoEditFragment extends Fragment {
     private static final String TAG = "PetInfoEditFragment";
-    private Button soleButton;
+    private Button addEditButton;
+    private Button deleteButton;
     private ImageView profileImageView;
     private EditText nameEditText;
     private EditText nickNameEditText;
@@ -47,18 +52,21 @@ public class PetInfoEditFragment extends Fragment {
     private EditText tricksEditText;
     private EditText routineEditText;
     private EditText hideoutEditText;
-    private PetInfo receivedPetInfo;
     private PetInfo updatePetInfo;
     private PetInfo createPetInfo;
-    private int receivedButtonId;
     private Firebase receivedRef;
     private Firebase rootFbRef;
     private Firebase petInfoFbRef;
     private User newUser;
     private ArrayList<PetInfo> petInfoArrayList;
-    private Bundle bundle;
+    private Bundle petObjectBundle;
+    private Bundle fabBundle;
     private String[] dataBundle;
     private int photoBundle;
+    private int buttonId;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private PetInfoDisplayFragment petInfoDisplayFragment;
 
 
     public PetInfoEditFragment() {
@@ -68,22 +76,32 @@ public class PetInfoEditFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newUser = User.getInstance();
-        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user/" + newUser.getUniqueId() + "/ownerProfile");
-        petInfoFbRef = rootFbRef.child("petInfoPage");
-        receivedPetInfo = new PetInfo();
+
+
+
+
+        Log.i(TAG, "onCreate: " + petObjectBundle + fabBundle);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_pet_info_edit, container, false);
         initializeViews(v);
-        bundle = getArguments();
-        if (receivedPetInfo != null){ //if receivedPetInfo object exists then set the hints.
-            Log.i(TAG, "onCreateView: receivedPetInfo != null so app wil prefilLEditText" + receivedPetInfo.getName());
-            receivedButtonId = -122484;
-            prefillEditText();
-        }
+        newUser = User.getInstance();
+        Log.i(TAG, "onCreate: ************** just created newUser singleton the size of the petProfile array is " + newUser.getOwnerProfile().getPetInfoPage().size());
+        rootFbRef = new Firebase("https://dogsitter.firebaseio.com/user/" + newUser.getUniqueId() + "/ownerProfile");
+        petInfoFbRef = rootFbRef.child("petInfoPage");
+        Log.i(TAG, "#1 test if bundles are null. petObject bundle is " + petObjectBundle + " fabBundle is " + fabBundle);
+        petObjectBundle = getArguments();
+        fabBundle = getArguments();
+        Log.i(TAG, "#2 test if bundles are null. petObject bundle is " + petObjectBundle + " fabBundle is " + fabBundle);
+//        if (petObjectBundle != null){ //if receivedPetInfo object exists then set the hints.
+//             //might need to be under initializeView
+//            Log.i(TAG, "onCreateView: receivedPetInfo != null so app wil prefilLEditText" + petObjectBundle.getInt(ProfileActivity.KEY_PHOTO));
+//            buttonId = -122484;
+//            preFillEditText();
+//        }
         setButton();
         return v;
     }
@@ -96,7 +114,8 @@ public class PetInfoEditFragment extends Fragment {
 
     private void initializeViews(View v) {
         profileImageView = (ImageView) v.findViewById(R.id.pet_profile_ImageView_id);
-        soleButton = (Button) v.findViewById(R.id.petEdit_onlyButton_id);
+        addEditButton = (Button) v.findViewById(R.id.petEdit_onlyButton_id);
+        deleteButton = (Button) v.findViewById(R.id.petEdit_deleteButton_id);
         nameEditText = (EditText) v.findViewById(R.id.pet_name_editText_id);
         nickNameEditText = (EditText) v.findViewById(R.id.pet_nickName_editText_id);
         ageEditText = (EditText) v.findViewById(R.id.pet_age_editText_id);
@@ -116,7 +135,178 @@ public class PetInfoEditFragment extends Fragment {
 
     }
 
-    public PetInfo getReceivedPetInfo() {
+
+    public void preFillEditText() {
+        Log.i(TAG, "prefillEditText: " + petObjectBundle.getInt(ProfileActivity.KEY_PHOTO));
+        if (profileImageView == null) return; //try deleting later. probably not needed
+        photoBundle = petObjectBundle.getInt(ProfileActivity.KEY_PHOTO);
+        profileImageView.setImageResource(photoBundle);
+        dataBundle = petObjectBundle.getStringArray(ProfileActivity.BUNDLE_KEY);
+        nameEditText.setText(dataBundle[0]);
+        nickNameEditText.setText(dataBundle[1]);
+        ageEditText.setText(dataBundle[2]);
+        weightEditText.setText(dataBundle[3]);
+        breedEditText.setText(dataBundle[4]);
+        colorEditText.setText(dataBundle[5]);
+        specialNeedsEditText.setText(dataBundle[6]);
+        allergiesEditText.setText(dataBundle[7]);
+        medicationEditText.setText(dataBundle[8]);
+        injuriesEditText.setText(dataBundle[9]);
+        fearsEditText.setText(dataBundle[10]);
+        hatesEditText.setText(dataBundle[11]);
+        lovesEditText.setText(dataBundle[12]);
+        tricksEditText.setText(dataBundle[13]);
+        routineEditText.setText(dataBundle[14]);
+        hideoutEditText.setText(dataBundle[15]);
+    }
+
+    public void setButton() {
+        buttonId = fabBundle.getInt(ProfileActivity.KEY_FAB_ID);
+        buttonId = petObjectBundle.getInt(ProfileActivity.KEY_EDIT_ID);
+        Log.i(TAG, "setButton: the buttonId = " + buttonId);
+        petInfoDisplayFragment = new PetInfoDisplayFragment();
+        switch (buttonId) {
+            case -122484:
+                preFillEditText();
+                String key = petObjectBundle.getString("KEY_REF");
+                receivedRef = petInfoFbRef.child(key);
+                addEditButton.setText("Save Changes");
+                addEditButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //update firebase to change existing profile at the receivedPosition position.
+                        updatePetInfo = new PetInfo(
+                                R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
+                                nameEditText.getText().toString(),
+                                nickNameEditText.getText().toString(),
+                                ageEditText.getText().toString(),
+                                weightEditText.getText().toString(),
+                                breedEditText.getText().toString(),
+                                colorEditText.getText().toString(),
+                                specialNeedsEditText.getText().toString(),
+                                allergiesEditText.getText().toString(),
+                                medicationEditText.getText().toString(),
+                                injuriesEditText.getText().toString(),
+                                fearsEditText.getText().toString(),
+                                hatesEditText.getText().toString(),
+                                lovesEditText.getText().toString(),
+                                tricksEditText.getText().toString(),
+                                routineEditText.getText().toString(),
+                                hideoutEditText.getText().toString());
+                        receivedRef.setValue(updatePetInfo);
+                        Toast.makeText(getContext(), "Pet profile successfully updated", Toast.LENGTH_LONG).show();
+                        setFragmentLogistics();
+                        fragmentTransaction.replace(R.id.profile_container_id, petInfoDisplayFragment);
+//                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        receivedRef.removeValue();
+                        Toast.makeText(getContext(), "Pet profile successfully deleted", Toast.LENGTH_LONG).show();
+                        setFragmentLogistics();
+                        fragmentTransaction.replace(R.id.profile_container_id, petInfoDisplayFragment);
+//                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+                //create delete petinfo button. make it gone initially and only visible here.
+                //receivedRef.getRef().removeValue(); make it delete the ref then display a toast.
+                //Toast.makeText(getContext(), "Pet profile successfully deleted", Toast.LENGTH_LONG).show();
+                break;
+            default:
+                addEditButton.setText("Create Dog Profile");
+                addEditButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        //update firebase to add a new dog profile
+                        petInfoArrayList = new ArrayList<PetInfo>();
+                        petInfoArrayList = newUser.getOwnerProfile().getPetInfoPage();
+                        createPetInfo = new PetInfo(
+                                R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
+                                nameEditText.getText().toString(),
+                                nickNameEditText.getText().toString(),
+                                ageEditText.getText().toString(),
+                                weightEditText.getText().toString(),
+                                breedEditText.getText().toString(),
+                                colorEditText.getText().toString(),
+                                specialNeedsEditText.getText().toString(),
+                                allergiesEditText.getText().toString(),
+                                medicationEditText.getText().toString(),
+                                injuriesEditText.getText().toString(),
+                                fearsEditText.getText().toString(),
+                                hatesEditText.getText().toString(),
+                                lovesEditText.getText().toString(),
+                                tricksEditText.getText().toString(),
+                                routineEditText.getText().toString(),
+                                hideoutEditText.getText().toString());
+                        petInfoArrayList.add(createPetInfo);
+                        petInfoFbRef.setValue(petInfoArrayList);
+                        Toast.makeText(getContext(), "Pet profile successfully created", Toast.LENGTH_LONG).show();
+                        setFragmentLogistics();
+                        fragmentTransaction.remove(PetInfoEditFragment.this).replace(R.id.profile_container_id, petInfoDisplayFragment);
+//                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+                break;
+        }
+    }
+
+    private void setFragmentLogistics() {
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+    }
+
+
+}
+
+
+
+/* =================BANK===================
+nameEditText.setHint(receivedPetInfo.getName());
+        nickNameEditText.setHint(receivedPetInfo.getNickname());
+        ageEditText.setHint(receivedPetInfo.getAge());
+        weightEditText.setHint(receivedPetInfo.getWeight());
+        breedEditText.setHint(receivedPetInfo.getBreed());
+        specialNeedsEditText.setHint(receivedPetInfo.getSpecialNeeds());
+        allergiesEditText.setHint(receivedPetInfo.getAllergies());
+        medicationEditText.setHint(receivedPetInfo.getMedication());
+        injuriesEditText.setHint(receivedPetInfo.getInjuries());
+        fearsEditText.setHint(receivedPetInfo.getFears());
+        hatesEditText.setHint(receivedPetInfo.getHates());
+        lovesEditText.setHint(receivedPetInfo.getLoves());
+        tricksEditText.setHint(receivedPetInfo.getTricks());
+        routineEditText.setHint(receivedPetInfo.getRoutine());
+        hideoutEditText.setHint(receivedPetInfo.getHidingSpots());
+
+if (receivedButtonId == -122484){
+            soleButton.setText("Save Changes");
+        } else {
+            soleButton.setText("Create Dog Profile");
+        }
+//        profileImageView.setImageResource(R.drawable.placeholder_pet_profile); workaround
+        //        profileImageView.setImageResource(receivedPetInfo.getPetPhoto()); //ideal
+
+        if (buttonIdBundle != -122484){ //happens when the add FAB button is pressed b/c the FAB buttonId returns a positive #
+
+        }
+
+
+        if (receivedPetInfo != null){ //if receivedPetInfo object exists then set the hints.
+            Log.i(TAG, "onCreateView: receivedPetInfo != null so app wil prefilLEditText" + receivedPetInfo.getName());
+            receivedButtonId = -122484;
+            prefillEditText();
+        }
+
+
+    private PetInfo receivedPetInfo; //never used b/c using bundles now
+    private int receivedButtonId; //never used b/c using bundles now
+
+ public PetInfo getReceivedPetInfo() {
         return receivedPetInfo;
     }
 
@@ -150,128 +340,41 @@ public class PetInfoEditFragment extends Fragment {
         this.receivedButtonId = receivedButtonId;
     }
 
-    public void prefillEditText(){
-//        profileImageView.setImageResource(R.drawable.placeholder_pet_profile); workaround
-        Log.i(TAG, "prefillEditText: " + receivedPetInfo.getAge());
-        if (profileImageView==null)return;
-//        profileImageView.setImageResource(receivedPetInfo.getPetPhoto()); //ideal
-        photoBundle = bundle.getInt(ProfileActivity.KEY_PHOTO);
-        profileImageView.setImageResource(photoBundle);
-        dataBundle = bundle.getStringArray(ProfileActivity.BUNDLE_KEY);
-        nameEditText.setText(dataBundle[0]);
-        nickNameEditText.setText(dataBundle[1]);
-        ageEditText.setText(dataBundle[2]);
-        weightEditText.setText(dataBundle[3]);
-        breedEditText.setText(dataBundle[4]);
-        colorEditText.setText(dataBundle[5]);
-        specialNeedsEditText.setText(dataBundle[6]);
-        allergiesEditText.setText(dataBundle[7]);
-        medicationEditText.setText(dataBundle[8]);
-        injuriesEditText.setText(dataBundle[9]);
-        fearsEditText.setText(dataBundle[10]);
-        hatesEditText.setText(dataBundle[11]);
-        lovesEditText.setText(dataBundle[12]);
-        tricksEditText.setText(dataBundle[13]);
-        routineEditText.setText(dataBundle[14]);
-        hideoutEditText.setText(dataBundle[15]);
-    }
+    rootFbRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                OwnerProfile ownerProfile = dataSnapshot.getValue(OwnerProfile.class);
+                                petInfoArrayList = ownerProfile.getPetInfoPage();
+                                createPetInfo = new PetInfo(
+                                        R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
+                                        nameEditText.getText().toString(),
+                                        nickNameEditText.getText().toString(),
+                                        ageEditText.getText().toString(),
+                                        weightEditText.getText().toString(),
+                                        breedEditText.getText().toString(),
+                                        colorEditText.getText().toString(),
+                                        specialNeedsEditText.getText().toString(),
+                                        allergiesEditText.getText().toString(),
+                                        medicationEditText.getText().toString(),
+                                        injuriesEditText.getText().toString(),
+                                        fearsEditText.getText().toString(),
+                                        hatesEditText.getText().toString(),
+                                        lovesEditText.getText().toString(),
+                                        tricksEditText.getText().toString(),
+                                        routineEditText.getText().toString(),
+                                        hideoutEditText.getText().toString());
+                                petInfoArrayList.add(createPetInfo);
+                                petInfoFbRef.setValue(petInfoArrayList);
+//                                Toast.makeText(getContext(), "Pet profile successfully created", Toast.LENGTH_LONG).show();
+                                setFragmentLogistics();
+                                fragmentTransaction.remove(PetInfoEditFragment.this).replace(R.id.profile_container_id, petInfoDisplayFragment);
+//                        fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
 
-    public void setButton(){
-        switch (receivedButtonId){
-            case -122484:
-                soleButton.setText("Save Changes");
-                soleButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //update firebase to change existing profile at the receivedPosition position.
-                        updatePetInfo = new PetInfo(
-                                R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
-                                nameEditText.getText().toString(),
-                                nickNameEditText.getText().toString(),
-                                ageEditText.getText().toString(),
-                                weightEditText.getText().toString(),
-                                breedEditText.getText().toString(),
-                                colorEditText.getText().toString(),
-                                specialNeedsEditText.getText().toString(),
-                                allergiesEditText.getText().toString(),
-                                medicationEditText.getText().toString(),
-                                injuriesEditText.getText().toString(),
-                                fearsEditText.getText().toString(),
-                                hatesEditText.getText().toString(),
-                                lovesEditText.getText().toString(),
-                                tricksEditText.getText().toString(),
-                                routineEditText.getText().toString(),
-                                hideoutEditText.getText().toString());
-                        String key = bundle.getString("KEY_REF");
-                        receivedRef = petInfoFbRef.child(key);
-                        receivedRef.setValue(updatePetInfo);
-                        Toast.makeText(getContext(), "Pet profile successfully updated", Toast.LENGTH_LONG).show();
-                    }
-                });
-                //create delete petinfo button. make it gone initially and only visible here.
-                //receivedRef.getRef().removeValue(); make it delete the ref then display a toast.
-                //Toast.makeText(getContext(), "Pet profile successfully deleted", Toast.LENGTH_LONG).show();
-                break;
-            default:
-                soleButton.setText("Create Dog Profile");
-                soleButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //update firebase to add a new dog profile
-                        createPetInfo = new PetInfo(
-                                R.drawable.placeholder_pet_profile, //eventually change this so the user can take a picture
-                                nameEditText.getText().toString(),
-                                nickNameEditText.getText().toString(),
-                                ageEditText.getText().toString(),
-                                weightEditText.getText().toString(),
-                                breedEditText.getText().toString(),
-                                colorEditText.getText().toString(),
-                                specialNeedsEditText.getText().toString(),
-                                allergiesEditText.getText().toString(),
-                                medicationEditText.getText().toString(),
-                                injuriesEditText.getText().toString(),
-                                fearsEditText.getText().toString(),
-                                hatesEditText.getText().toString(),
-                                lovesEditText.getText().toString(),
-                                tricksEditText.getText().toString(),
-                                routineEditText.getText().toString(),
-                                hideoutEditText.getText().toString());
-                        petInfoArrayList = new ArrayList<PetInfo>();
-                        petInfoArrayList = newUser.getOwnerProfile().getPetInfoPage();
-                        petInfoArrayList.add(createPetInfo);
-                        petInfoFbRef.setValue(petInfoArrayList);
-                        Toast.makeText(getContext(), "Pet profile successfully created", Toast.LENGTH_LONG).show();
-                    }
-                });
-                break;
-        }
-    }
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
 
-}
-
-
-
-/* =================BANK===================
-nameEditText.setHint(receivedPetInfo.getName());
-        nickNameEditText.setHint(receivedPetInfo.getNickname());
-        ageEditText.setHint(receivedPetInfo.getAge());
-        weightEditText.setHint(receivedPetInfo.getWeight());
-        breedEditText.setHint(receivedPetInfo.getBreed());
-        specialNeedsEditText.setHint(receivedPetInfo.getSpecialNeeds());
-        allergiesEditText.setHint(receivedPetInfo.getAllergies());
-        medicationEditText.setHint(receivedPetInfo.getMedication());
-        injuriesEditText.setHint(receivedPetInfo.getInjuries());
-        fearsEditText.setHint(receivedPetInfo.getFears());
-        hatesEditText.setHint(receivedPetInfo.getHates());
-        lovesEditText.setHint(receivedPetInfo.getLoves());
-        tricksEditText.setHint(receivedPetInfo.getTricks());
-        routineEditText.setHint(receivedPetInfo.getRoutine());
-        hideoutEditText.setHint(receivedPetInfo.getHidingSpots());
-
-if (receivedButtonId == -122484){
-            soleButton.setText("Save Changes");
-        } else {
-            soleButton.setText("Create Dog Profile");
-        }
-
+                            }
+                        });
  */

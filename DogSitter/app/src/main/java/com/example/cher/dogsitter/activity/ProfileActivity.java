@@ -42,23 +42,8 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
     private static final String TAG = "ProfileActivity";
     public static final String BUNDLE_KEY = "key for the entire bundle";
     public static final String KEY_PHOTO = "petPhoto";
-//    private static final String KEY_NAME = "NAME";
-//    private static final String KEY_NICKNAME = "";
-//    private static final String KEY_AGE = "";
-//    private static final String KEY_BREED = "";
-//    private static final String KEY_COLOR = "";
-//    private static final String KEY_WEIGHT = "";
-//    private static final String KEY_SPECIAL_NEEDS = "";
-//    private static final String KEY_ALLERGIES = "";
-//    private static final String KEY_MEDICATION = "";
-//    private static final String KEY_INJURIES = "";
-//    private static final String KEY_FEARS = "";
-//    private static final String KEY_HATES = "";
-//    private static final String KEY_LOVES = "";
-//    private static final String KEY_TRICKS = "";
-//    private static final String KEY_ROUTINE = "";
-//    private static final String KEY_HIDINGSPOTS = "";
-
+    public static final String KEY_FAB_ID = "buttonId for FAB";
+    public static final String KEY_EDIT_ID = "buttonId for onTouch";
 
     private AHBottomNavigation bottomNavigation;
     private String selectionExtra;
@@ -67,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
     private PetInfoDisplayFragment petInfoDisplayFragment;
     private PetInfoEditFragment petInfoEditFragment;
     private SitterInfoFragment sitterInfoFragment;
-    private ChatFragment chatFragment;
+    private ChatFragment chatFragment;//    private static final String KEY_NAME = "NAME";
     private OwnerInfoFragment ownerInfoFragment;
     private MySitterFragment mySitterFragment;
     private FeedFragment feedFragment;
@@ -84,8 +69,6 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private ActionBarDrawerToggle drawerToggle;
-
-    //declare sitter info fragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -280,27 +263,66 @@ public class ProfileActivity extends AppCompatActivity implements OnPetSelectedL
                 petSelected.getFears(), petSelected.getHates(), petSelected.getLoves(),
                 petSelected.getTricks(), petSelected.getRoutine(), petSelected.getHidingSpots()};
         bundle.putStringArray(BUNDLE_KEY, dataBundle);
-        bundle.putString("KEY_REF",refToItemPressed.getKey());
+        bundle.putString("KEY_REF", refToItemPressed.getKey());
         bundle.putInt(KEY_PHOTO, photoBundle);
-//        bundle.putString("NAME",petSelected.getName());
-//        bundle.putString("AGE", petSelected.getAge());
+        bundle.putInt(KEY_EDIT_ID, -122484);
         Log.i(TAG, "onPetSelected: " + refToItemPressed.getKey());
         petInfoEditFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
-//        petInfoEditFragment.setReceivedPetInfo(petSelected);
-//        petInfoEditFragment.setReceivedRef(refToItemPressed);
     }
 
     @Override
     public void onAddPressed(int buttonId) {
         setFragmentLogistics();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_FAB_ID, buttonId);
+        petInfoEditFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        petInfoEditFragment.setReceivedButtonId(buttonId);
-
     }
 }
+
+
+/* ======================BANK======================
+
+//        bundle.putString("NAME",petSelected.getName());
+//        bundle.putString("AGE", petSelected.getAge());
+//        petInfoEditFragment.setReceivedPetInfo(petSelected);
+//        petInfoEditFragment.setReceivedRef(refToItemPressed);
+        petInfoEditFragment.setReceivedButtonId(buttonId);
+
+//    private static final String KEY_NAME = "NAME";
+//    private static final String KEY_NICKNAME = "";
+//    private static final String KEY_AGE = "";
+//    private static final String KEY_BREED = "";
+//    private static final String KEY_COLOR = "";
+//    private static final String KEY_WEIGHT = "";
+//    private static final String KEY_SPECIAL_NEEDS = "";
+//    private static final String KEY_ALLERGIES = "";
+//    private static final String KEY_MEDICATION = "";
+//    private static final String KEY_INJURIES = "";
+//    private static final String KEY_FEARS = "";
+//    private static final String KEY_HATES = "";
+//    private static final String KEY_LOVES = "";
+//    private static final String KEY_TRICKS = "";
+//    private static final String KEY_ROUTINE = "";
+//    private static final String KEY_HIDINGSPOTS = "";
+    //    private static final String KEY_NICKNAME = "";
+//    private static final String KEY_AGE = "";
+//    private static final String KEY_BREED = "";
+//    private static final String KEY_COLOR = "";
+//    private static final String KEY_WEIGHT = "";
+//    private static final String KEY_SPECIAL_NEEDS = "";
+//    private static final String KEY_ALLERGIES = "";
+//    private static final String KEY_MEDICATION = "";
+//    private static final String KEY_INJURIES = "";
+//    private static final String KEY_FEARS = "";
+//    private static final String KEY_HATES = "";
+//    private static final String KEY_LOVES = "";
+//    private static final String KEY_TRICKS = "";
+//    private static final String KEY_ROUTINE = "";
+//    private static final String KEY_HIDINGSPOTS = "";
+ */

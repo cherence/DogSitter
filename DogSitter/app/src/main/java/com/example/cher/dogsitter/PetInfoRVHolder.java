@@ -14,9 +14,9 @@ public class PetInfoRVHolder extends RecyclerView.ViewHolder{
     public TextView nameTextView;
     public TextView nicknameTextView;
     public TextView ageTextView;
+    public TextView weightTextView;
     public TextView breedTextView;
     public TextView colorTextView;
-    public TextView weightTextView;
     public TextView specialNeedsTextView;
     public TextView allergiesTextView;
     public TextView medicationTextView;
@@ -35,9 +35,9 @@ public class PetInfoRVHolder extends RecyclerView.ViewHolder{
         nameTextView = (TextView) v.findViewById(R.id.pet_name_textView_id);
         nicknameTextView = (TextView) v.findViewById(R.id.pet_nickName_textView_id);
         ageTextView = (TextView) v.findViewById(R.id.pet_age_textView_id);
+        weightTextView = (TextView) v.findViewById(R.id.pet_weight_textView_id);
         breedTextView = (TextView) v.findViewById(R.id.pet_breed_textView_id);
         colorTextView = (TextView) v.findViewById(R.id.pet_color_textView_id);
-        weightTextView = (TextView) v.findViewById(R.id.pet_weight_textView_id);
         specialNeedsTextView = (TextView) v.findViewById(R.id.pet_specialNeeds_textView_id);
         allergiesTextView = (TextView) v.findViewById(R.id.pet_allergies_textView_id);
         medicationTextView = (TextView) v.findViewById(R.id.pet_medication_textView_id);
