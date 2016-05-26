@@ -4,27 +4,29 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.cher.dogsitter.Interface.OnAddPressedListener;
+import com.example.cher.dogsitter.Interface.OnPetSelectedListener;
 import com.example.cher.dogsitter.R;
 import com.example.cher.dogsitter.fragment.ChatFragment;
 import com.example.cher.dogsitter.fragment.MySitterFragment;
 import com.example.cher.dogsitter.fragment.OwnerInfoFragment;
-import com.example.cher.dogsitter.fragment.PetInfoFragment;
+import com.example.cher.dogsitter.fragment.PetInfoDisplayFragment;
+import com.example.cher.dogsitter.fragment.PetInfoEditFragment;
 import com.example.cher.dogsitter.fragment.SitterInfoFragment;
 import com.example.cher.dogsitter.model.Group;
+import com.example.cher.dogsitter.model.PetInfo;
 import com.example.cher.dogsitter.model.User;
 import com.example.cher.dogsitter.wishlist.FeedFragment;
 import com.example.cher.dogsitter.wishlist.FirstAidFragment;
@@ -34,33 +36,39 @@ import com.example.cher.dogsitter.wishlist.MedicineFragment;
 import com.example.cher.dogsitter.wishlist.PottyFragment;
 import com.example.cher.dogsitter.wishlist.StuffFragment;
 import com.example.cher.dogsitter.wishlist.WalkFragment;
+import com.firebase.client.Firebase;
 
-public class ProfileActivity extends AppCompatActivity {
-    AHBottomNavigation bottomNavigation;
-    String selectionExtra;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-    PetInfoFragment petInfoFragment;
-    SitterInfoFragment sitterInfoFragment;
-    ChatFragment chatFragment;
-    OwnerInfoFragment ownerInfoFragment;
-    MySitterFragment mySitterFragment;
-    FeedFragment feedFragment;
-    FirstAidFragment firstAidFragment;
-    GroomFragment groomFragment;
-    HouseFragment houseFragment;
-    MedicineFragment medicineFragment;
-    PottyFragment pottyFragment;
-    StuffFragment stuffFragment;
-    WalkFragment walkFragment;
-    User user;
-    Group group;
-    Toolbar toolbar;
-    DrawerLayout drawer;
-    NavigationView navigationView;
-    ActionBarDrawerToggle drawerToggle;
+public class ProfileActivity extends AppCompatActivity implements OnPetSelectedListener, OnAddPressedListener {
+    private static final String TAG = "ProfileActivity";
+    public static final String BUNDLE_KEY = "key for the entire bundle";
+    public static final String KEY_PHOTO = "petPhoto";
+    public static final String KEY_FAB_ID = "buttonId for FAB";
+    public static final String KEY_EDIT_ID = "buttonId for onTouch";
 
-    //declare sitter info fragment.
+    private AHBottomNavigation bottomNavigation;
+    private String selectionExtra;
+    private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
+    private PetInfoDisplayFragment petInfoDisplayFragment;
+    private PetInfoEditFragment petInfoEditFragment;
+    private SitterInfoFragment sitterInfoFragment;
+    private ChatFragment chatFragment;//    private static final String KEY_NAME = "NAME";
+    private OwnerInfoFragment ownerInfoFragment;
+    private MySitterFragment mySitterFragment;
+    private FeedFragment feedFragment;
+    private FirstAidFragment firstAidFragment;
+    private GroomFragment groomFragment;
+    private HouseFragment houseFragment;
+    private MedicineFragment medicineFragment;
+    private PottyFragment pottyFragment;
+    private StuffFragment stuffFragment;
+    private WalkFragment walkFragment;
+    private User user;
+    private Group group;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +88,13 @@ public class ProfileActivity extends AppCompatActivity {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout_id);
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
-
         navigationView = (NavigationView) findViewById(R.id.nvView_id);
         setUpDrawerContent(navigationView);
     }
 
     private void initializeFragments(){
-        petInfoFragment = new PetInfoFragment();
+        petInfoDisplayFragment = new PetInfoDisplayFragment();
+        petInfoEditFragment = new PetInfoEditFragment();
         sitterInfoFragment = new SitterInfoFragment();
         chatFragment = new ChatFragment();
         ownerInfoFragment = new OwnerInfoFragment();
@@ -124,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.profile_container_id, mySitterFragment);
                 break;
             case R.id.drawer_dog_id:
-                fragmentTransaction.replace(R.id.profile_container_id, petInfoFragment);
+                fragmentTransaction.replace(R.id.profile_container_id, petInfoDisplayFragment);
                 break;
             case R.id.drawer_owner_id:
                 fragmentTransaction.replace(R.id.profile_container_id, ownerInfoFragment);
@@ -187,9 +195,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void createAndSetNaviBar(){
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, android.R.drawable.ic_media_play, R.color.primary);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, android.R.drawable.ic_media_pause, R.color.primary_dark);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, android.R.drawable.ic_media_ff, R.color.primary_light);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.icon_owner_48, R.color.primary);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.icon_sitter_48, R.color.primary_dark);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.icon_chat_48, R.color.primary_light);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -206,7 +214,7 @@ public class ProfileActivity extends AppCompatActivity {
                 setFragmentLogistics();
                 fragmentTransaction.addToBackStack(null); //might go right above fragmenttransaction.commit
                 if (position == 0){
-                    fragmentTransaction.replace(R.id.profile_container_id, petInfoFragment);
+                    fragmentTransaction.replace(R.id.profile_container_id, petInfoDisplayFragment);
                 } else if (position == 1){
                     fragmentTransaction.replace(R.id.profile_container_id, sitterInfoFragment);
                 } else if (position == 2){
@@ -227,7 +235,7 @@ public class ProfileActivity extends AppCompatActivity {
         setFragmentLogistics();
         switch (selectionExtra){
             case "My Owner Profile":
-                fragmentTransaction.add(R.id.profile_container_id, petInfoFragment);
+                fragmentTransaction.add(R.id.profile_container_id, petInfoDisplayFragment);
                 break;
             case "My Sitter Profile":
                 fragmentTransaction.add(R.id.profile_container_id, sitterInfoFragment);
@@ -242,4 +250,78 @@ public class ProfileActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
     }
 
+    @Override
+    public void onPetSelected(PetInfo petSelected, Firebase refToItemPressed) {
+        setFragmentLogistics();
+        Bundle bundle = new Bundle();
+        int photoBundle = petSelected.getPetPhoto();
+        String[] dataBundle = {petSelected.getName(),
+                petSelected.getNickname(), petSelected.getAge(), petSelected.getBreed(),
+                petSelected.getColor(), petSelected.getWeight(), petSelected.getSpecialNeeds(),
+                petSelected.getAllergies(), petSelected.getMedication(), petSelected.getInjuries(),
+                petSelected.getFears(), petSelected.getHates(), petSelected.getLoves(),
+                petSelected.getTricks(), petSelected.getRoutine(), petSelected.getHidingSpots()};
+        bundle.putStringArray(BUNDLE_KEY, dataBundle);
+        bundle.putString("KEY_REF", refToItemPressed.getKey());
+        bundle.putInt(KEY_PHOTO, photoBundle);
+        bundle.putInt(KEY_EDIT_ID, -122484);
+        Log.i(TAG, "onPetSelected: " + refToItemPressed.getKey());
+        petInfoEditFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+//        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onAddPressed(int buttonId) {
+        setFragmentLogistics();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_FAB_ID, buttonId);
+        petInfoEditFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.profile_container_id, petInfoEditFragment);
+//        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
 }
+
+
+/* ======================BANK======================
+
+//    bundle.putString("NAME",petSelected.getName());
+//    bundle.putString("AGE", petSelected.getAge());
+//    petInfoEditFragment.setReceivedPetInfo(petSelected);
+//    petInfoEditFragment.setReceivedRef(refToItemPressed);
+      petInfoEditFragment.setReceivedButtonId(buttonId);
+
+//    private static final String KEY_NAME = "NAME";
+//    private static final String KEY_NICKNAME = "";
+//    private static final String KEY_AGE = "";
+//    private static final String KEY_BREED = "";
+//    private static final String KEY_COLOR = "";
+//    private static final String KEY_WEIGHT = "";
+//    private static final String KEY_SPECIAL_NEEDS = "";
+//    private static final String KEY_ALLERGIES = "";
+//    private static final String KEY_MEDICATION = "";
+//    private static final String KEY_INJURIES = "";
+//    private static final String KEY_FEARS = "";
+//    private static final String KEY_HATES = "";
+//    private static final String KEY_LOVES = "";
+//    private static final String KEY_TRICKS = "";
+//    private static final String KEY_ROUTINE = "";
+//    private static final String KEY_HIDINGSPOTS = "";
+//    private static final String KEY_NICKNAME = "";
+//    private static final String KEY_AGE = "";
+//    private static final String KEY_BREED = "";
+//    private static final String KEY_COLOR = "";
+//    private static final String KEY_WEIGHT = "";
+//    private static final String KEY_SPECIAL_NEEDS = "";
+//    private static final String KEY_ALLERGIES = "";
+//    private static final String KEY_MEDICATION = "";
+//    private static final String KEY_INJURIES = "";
+//    private static final String KEY_FEARS = "";
+//    private static final String KEY_HATES = "";
+//    private static final String KEY_LOVES = "";
+//    private static final String KEY_TRICKS = "";
+//    private static final String KEY_ROUTINE = "";
+//    private static final String KEY_HIDINGSPOTS = "";
+ */

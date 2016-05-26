@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,19 +6,12 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.cher.dogsitter.fragment.PetInfoFragment">
+    tools:context=".fragment.PetInfoDisplayFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/pet_edit_button_id"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/icon_edit_48"
-            android:layout_gravity="right"/>
 
         <TextView
             android:id="@+id/pet_dogTitle_textView_id"
@@ -32,12 +25,22 @@
             android:textColor="@color/primary"/>
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/pet_recyclerView_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/pet_fab_id"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@color/icons"
+            android:visibility="gone"
+            />
 
-
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

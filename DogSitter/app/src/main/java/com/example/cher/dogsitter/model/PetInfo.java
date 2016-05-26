@@ -5,36 +5,36 @@ package com.example.cher.dogsitter.model;
  * Created by leisforkokomo on 5/8/16.
  */
 public class PetInfo {
-    String petPhoto;
-    String name;
-    String nickname;
-    String age;
-    String breed;
-    String color;
-    String weight;
-    String specialNeeds;
-    String allergies;
-    String medication;
-    String injuries;
-    String fears;
-    String hates;
-    String loves;
-    String tricks;
-    String routine;
-    String hidingSpots;
+    private int petPhoto;
+    private String name;
+    private String nickname;
+    private String age;
+    private String weight;
+    private String breed;
+    private String color;
+    private String specialNeeds;
+    private String allergies;
+    private String medication;
+    private String injuries;
+    private String fears;
+    private String hates;
+    private String loves;
+    private String tricks;
+    private String routine;
+    private String hidingSpots;
 
 
     public PetInfo() {
     }
 
-    public PetInfo(String petPhoto, String name, String nickname, String age, String breed, String color, String weight, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String tricks, String routine, String hidingSpots) {
+    public PetInfo(int petPhoto, String name, String nickname, String age, String weight, String breed, String color, String specialNeeds, String allergies, String medication, String injuries, String fears, String hates, String loves, String tricks, String routine, String hidingSpots) {
         this.petPhoto = petPhoto;
         this.name = name;
         this.nickname = nickname;
         this.age = age;
+        this.weight = weight;
         this.breed = breed;
         this.color = color;
-        this.weight = weight;
         this.specialNeeds = specialNeeds;
         this.allergies = allergies;
         this.medication = medication;
@@ -47,11 +47,11 @@ public class PetInfo {
         this.hidingSpots = hidingSpots;
     }
 
-    public String getPetPhoto() {
+    public int getPetPhoto() {
         return petPhoto;
     }
 
-    public void setPetPhoto(String petPhoto) {
+    public void setPetPhoto(int petPhoto) {
         this.petPhoto = petPhoto;
     }
 
@@ -183,3 +183,4 @@ public class PetInfo {
         this.hidingSpots = hidingSpots;
     }
 }
+

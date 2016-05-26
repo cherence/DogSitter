@@ -14,8 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ready to dogsit?"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/primary"
         />
 
     <Button
@@ -28,7 +30,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/sitterFrag_recyclerView_id"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
