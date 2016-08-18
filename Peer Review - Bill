@@ -1,0 +1,54 @@
+1. Does the project appear to meet the technical requirements? Write up one sentence on your findings and give a score 0-3.
+I can see Cher using firebase, 3rd party library (bottom navi) and fragment. Will give it a 2. 
+
+Is your peer making API calls, using SDK's/third-party libraries?
+bottom navi is a 3rd party library. 
+
+Is your peer making use of Services? If so, are they offloading long tasks to a separate thread, i.e. AsyncTask, Runnable, IntentService, etc.
+N/A at the moment. I see most of the features are not done.
+
+Is your peer making use of Fragments? If so, are they passing data from Fragment to Activity via interfaces? If not, why did absense of Fragments make sense?
+I see Cher is converting to Fragments. Does not see any interfaces at the moment since it's not done.
+
+Is your peer making use of RecyclerView? If so, does it appear to be working correctly ( implementation and otherwise )?
+I don't see recycleview being use at the moment.
+
+Is your peer making use of some sort of persistent storage, i.e. Firebase or SQLite? If so, why do you think Firebase/SQLite was chosen? Could they have used one or the other instead and why?
+Firebase to store user info. Firebase is good to share pet info throughout the user
+
+2. Does the project appear to be creative, innovative, and different from any competition? Write up one sentence on your findings and give a score 0-3.
+ -- first time hearing about a pet sitting app, creative enough - 2
+
+Is your peer making use of proper UX patterns we learned in class? If not, what are they doing that is unconvetional or that might confuse a user ( you )?
+-- app are for dog owners
+
+Is your peer making anything cool or awesome that you would like to note or applaud them on?
+--getting FB user name and email. connecting to Firebase properly is good.
+
+
+3. Does the project appear to follow correct coding styles and best practices? Write up one sentence on your findings and give a score 0-3.
+-- clean code syle - 2
+
+Are you able to reasonably follow the code without having anyone answer your questions?
+-- yes, most of the codes have java doc or comments explaining what it does.
+
+Are you able to make sense of what the code is doing or is trying to do?
+-- simple to understand
+
+
+4. Find two pieces of code of any size: one that is readable and easy to follow and one that is difficult to follow and understand.
+
+What makes the readable code readable? Be as detailed as you can in your answer, it can be challenging to explain why something is easy to undertand
+-- setting up user info to firebase. the naming convention is good and able to follow the code to how the user will be created with Firebase. 
+
+What makes the difficult code harder to follow? Be as detailed as you can in your answer.
+-- the app doesn't have much coding done. can't follow on how it will work base on looking from codes alone.
+
+5. High level project overview: Take a look at as many individual files as you have time for
+
+Does this class make sense?
+ -- the classes make sense 
+Does the structure of the class make sense?
+ -- yes
+Is it clear what this class is supposed to do?
+-- very clear 
